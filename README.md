@@ -78,7 +78,7 @@ ansible-vault encrypt group_vars/all/vault.yml
 ansible-vault edit group_vars/all/vault.yml
 ```
 
-> Note : if you version your code, don't forget to exclude this vault file of versionning (with .`gitignorefile` if you are using GIT).
+> Note : if you version your code, don't forget to exclude this vault file of versionning (with .`gitignore file` if you are using GIT).
 
 According to your needs, you can edit all variables in `group_vars` directory and subdirectories.
 
