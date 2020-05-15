@@ -137,17 +137,10 @@ ansible-playbook -i inventory_yourInventoryName.yml <playbook_name> --ask-vault-
 Playbook deployment :
 
 * playbook_general_deploy.yml
-* playbook_build_deploy.yml
-* playbook_backup_deploy.yml
 
 ### playbook_general_deploy.yml
 
 This playbook deploys general configuration : tools (useful packages), auto reboot, auto upgrade, sudo users, NTP client and DNS resolvers.
 
-### playbook_build_deploy.yml
+### Other playbooks will be written...
 
-This playbook deploys a build node which needs Docker.
-
-### playbook_backup_deploy.yml
-
-This playbook deploys a backup server which use borgbackup to manage backup rotation.
