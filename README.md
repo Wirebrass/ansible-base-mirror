@@ -17,7 +17,7 @@ Update and install Ansible and GIT on your system.
 Clone this repo (ssh pubkey needs to be authorized for this repo) and go into the cloned directory :
 
 ```bash
-git clone git@git.grifon.fr:nemo/ansible-base.git
+git clone https://git.grifon.fr/nemo/ansible-base.git
 cd ansible-core
 ```
 
