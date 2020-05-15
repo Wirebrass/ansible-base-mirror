@@ -1,0 +1,7 @@
+---
+- name: Cron installed
+  package:
+    name: "{{ cron_package }}"
+    state: present
+  notify: restart cron
+  when: auto_reboot # Only if auto reboot is enabled for this host or group of hosts

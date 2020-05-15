@@ -1,0 +1,5 @@
+---
+- name: Iptables installed
+  package:
+    name: "iptables"
+    state: present

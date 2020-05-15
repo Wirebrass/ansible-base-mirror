@@ -1,0 +1,17 @@
+---
+# defaults file for docker_registry
+
+# Name of the sudo package (depends on the OS)
+sudo_package: sudo
+
+# Sudoers' group name
+sudo_group: sudo
+
+# HASH of Default user password when a new user is created
+default_user_password: ""
+
+# Liste of all sudo users
+sudo_users: []
+
+# SSH public key of users to allow SSH connection witk SSH priv/pub keys
+public_key: []

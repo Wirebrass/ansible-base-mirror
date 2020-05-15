@@ -1,0 +1,10 @@
+---
+# defaults file for client_tools
+
+# All packages (tools) to install on the server
+tools_package:
+  - sudo
+  - curl
+  - sed
+  - grep
+  - net-tools

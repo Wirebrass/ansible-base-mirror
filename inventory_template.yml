@@ -1,0 +1,20 @@
+all:
+  vars:
+    ansible_user: ansible
+    ansible_become: yes
+  children:
+    function:
+      children:
+        backup_server:
+          hosts:
+            myFirstGentooHost.example.org:
+    os:
+      children:
+        os_gentoo:
+          hosts:
+            myFirstGentooHost.example.org:
+            mySecondGentooHost.anotherexample.org:
+        os_debian:
+          hosts:
+            myFirstDebianHost.example.org:
+            mySecondDebianHost.anotherexample.org:

@@ -1,0 +1,6 @@
+---
+- name: Sudo installed
+  package:
+    name: "{{ sudo_package }}"
+    state: present
+

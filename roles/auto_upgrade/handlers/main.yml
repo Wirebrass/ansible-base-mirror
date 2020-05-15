@@ -1,0 +1,8 @@
+---
+# handlers file for auto_upgrade
+
+- name: "restart cron"
+  service:
+    name: "{{ cron_service_name }}"
+    enabled: yes
+    state: restarted

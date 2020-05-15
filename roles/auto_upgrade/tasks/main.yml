@@ -1,0 +1,5 @@
+---
+# Main tasks file for auto_upgrade
+
+- import_tasks: package.yml
+- import_tasks: crontask.yml

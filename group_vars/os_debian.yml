@@ -1,0 +1,25 @@
+# Service and package's name of NTP client on Debian
+ntp_service_name: ntp
+ntp_package: ntp
+
+# Package's name of sudo package on Debian
+sudo_package: sudo
+
+# Service and package's name of CRON on Debian
+cron_service_name: cron
+cron_package: cron
+
+# Sudoers' group name on Debian
+sudo_group: sudo
+
+# Command to run to execute a Debian update
+cron_upgrade_job: export PATH=$PATH:/usr/local/sbin:/usr/sbin:/sbin; export TERM=rxvt-unicode-256color; apt-get -q update && apt-get -q -y upgrade && apt-get -q -y autoremove
+
+# Tools to install on Debian hosts
+tools_package:
+  - sudo
+  - curl
+  - sed
+  - grep
+  - net-tools
+

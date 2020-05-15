@@ -1,0 +1,60 @@
+---
+- name: Iptables installed
+  package:
+    name: "iptables"
+    state: present
+
+- name: Allow related and established connections
+  iptables:
+    chain: INPUT
+    ctstate: ESTABLISHED,RELATED
+    jump: ACCEPT
+
+- name: Allow incoming on localhost interface
+  iptables:
+    chain: INPUT
+    in_interface: lo
+    jump: ACCEPT
+
+- name: Allow incoming ICMP
+  iptables:
+    chain: INPUT
+    protocol: icmp
+    jump: ACCEPT
+
+- name: Allow new incoming connections on TCP port 22 (SSH).
+  iptables:
+    chain: INPUT
+    protocol: tcp
+    destination_port: 22
+    jump: ACCEPT
+    comment: Accept new connections on port "22".
+
+- name: Allow new incoming connections on TCP port (dynamic list).
+  iptables:
+    chain: INPUT
+    protocol: tcp
+    destination_port: "{{ item }}"
+    jump: ACCEPT
+    comment: Accept new connections on port "{{ item }}".
+  loop: "{{ tcp_authorized_ports }}"
+  when: tcp_authorized_ports is defined and (tcp_authorized_ports|length>0)
+
+- name: Allow new incoming connections from specific IP (dynamic list).
+  iptables:
+    chain: INPUT
+    source: "{{ item }}"
+    jump: ACCEPT
+    comment: Accept new connections from IP "{{ item }}".
+  loop: "{{ ip_authorized }}"
+  when: ip_authorized is defined and (ip_authorized|length>0)
+
+- name: Set the policy for the FORWARD chain to DROP
+  iptables:
+    chain: FORWARD
+    policy: DROP
+
+- name: Set the policy for the INPUT chain to DROP
+  iptables:
+    chain: INPUT
+    policy: DROP

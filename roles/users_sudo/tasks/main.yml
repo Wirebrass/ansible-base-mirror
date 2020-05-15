@@ -1,0 +1,7 @@
+---
+# Main tasks file for users_sudo
+
+- import_tasks: package.yml
+- import_tasks: group.yml
+- import_tasks: users.yml
+

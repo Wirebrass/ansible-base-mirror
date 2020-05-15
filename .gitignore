@@ -1,0 +1,5 @@
+group_vars/all/vault.yml
+host_vars/*.wirebrass.fr
+inventory_wirebrass.yml
+.vault-password
+*.retry

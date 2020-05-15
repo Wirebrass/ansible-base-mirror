@@ -1,0 +1,26 @@
+# Enable auto reboot
+#auto_reboot: true
+
+# Cron task scheduling for auto reboot
+#cron_reboot_minute: "50"
+#cron_reboot_hour: "0"
+#cron_reboot_day: "*"
+#cron_reboot_month: "*"
+#cron_reboot_weekday: "1"
+
+# Set to true if you want to enable auto upgrade
+#auto_upgrade: true
+
+# Cron task scheduling for auto upgrade
+#cron_upgrade_minute: "25"
+#cron_upgrade_hour: "0"
+#cron_upgrade_day: "*"
+#cron_upgrade_month: "*"
+#cron_upgrade_weekday: "*"
+
+# All authorized TCP ports
+#tcp_authorized_ports:
+#  - 22
+
+# All incoming authorized IP (all ports and all protocols)
+#ip_authorized: []

@@ -1,0 +1,7 @@
+---
+- name: Cron installed
+  package:
+    name: "{{ cron_package }}"
+    state: present
+  notify: restart cron
+  when: auto_upgrade # Only if auto upgrade is enabled for this host or group of hosts

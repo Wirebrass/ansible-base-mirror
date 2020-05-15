@@ -1,0 +1,5 @@
+---
+- name: NTP client installed
+  package:
+    name: "{{ ntp_package }}"
+    state: present

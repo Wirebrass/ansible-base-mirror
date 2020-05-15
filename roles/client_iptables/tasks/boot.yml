@@ -1,0 +1,9 @@
+---
+- name: Add load rules at boot
+  copy:
+    src: iptables
+    dest: /etc/network/if-pre-up.d/iptables
+    owner: root
+    group: root
+    mode: 0755
+

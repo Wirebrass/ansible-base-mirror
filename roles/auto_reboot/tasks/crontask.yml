@@ -1,0 +1,13 @@
+---
+- name: crontask configured
+  cron:
+    name: "Auto reboot"
+    user: root
+    minute: "{{ cron_reboot_minute }}"
+    hour: "{{ cron_reboot_hour }}"
+    day: "{{ cron_reboot_day }}"
+    month: "{{ cron_reboot_month }}"
+    weekday: "{{ cron_reboot_weekday }}"
+    job: /sbin/reboot
+  notify: restart cron
+  when: auto_reboot # Only if auto reboot is enabled for this host or group of hosts

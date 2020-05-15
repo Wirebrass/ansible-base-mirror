@@ -1,0 +1,8 @@
+---
+# handlers file for client_reboot
+
+- name: "restart cron"
+  service:
+    name: "{{ cron_service_name }}"
+    enabled: yes
+    state: restarted

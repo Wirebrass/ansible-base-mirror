@@ -1,0 +1,5 @@
+---
+# Main tasks file for client_ntp
+
+- import_tasks: package.yml
+- import_tasks: service.yml

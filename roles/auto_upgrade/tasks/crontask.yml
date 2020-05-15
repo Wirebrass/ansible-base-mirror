@@ -1,0 +1,13 @@
+---
+- name: crontask configured
+  cron:
+    name: "Auto upgrade"
+    user: root
+    minute: "{{ cron_upgrade_minute }}"
+    hour: "{{ cron_upgrade_hour }}"
+    day: "{{ cron_upgrade_day }}"
+    month: "{{ cron_upgrade_month }}"
+    weekday: "{{ cron_upgrade_weekday }}"
+    job: "{{ cron_upgrade_job }}"
+  notify: restart cron
+  when: auto_upgrade # Only if auto upgrade is enabled for this host or group of hosts

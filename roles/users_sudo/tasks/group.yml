@@ -1,0 +1,6 @@
+---
+- name: Group sudo created
+  group:
+    name: "{{ sudo_group }}"
+    state: present
+

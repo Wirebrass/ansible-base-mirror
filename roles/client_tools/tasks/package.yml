@@ -1,0 +1,9 @@
+---
+# Install tools task
+- name: Tools installed
+  package:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ tools_package }}"
+  when: tools_package is defined and (tools_package|length>0)
+

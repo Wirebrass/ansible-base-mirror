@@ -1,0 +1,10 @@
+---
+- hosts: all
+  roles:
+    - auto_reboot
+    - auto_upgrade
+    #- client_iptables # Role not well defined now
+    - client_ntp
+    - client_resolvers
+    - client_tools
+    - users_sudo

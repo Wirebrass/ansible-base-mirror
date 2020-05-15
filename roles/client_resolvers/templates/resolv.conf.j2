@@ -1,0 +1,4 @@
+search {{ main_domain }}
+{% for resolver in resolvers %}
+nameserver {{ resolver }}
+{% endfor %}

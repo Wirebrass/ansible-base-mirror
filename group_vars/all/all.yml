@@ -1,0 +1,21 @@
+---
+# Sudo users on all servers
+sudo_users:
+  - john
+
+# Hash of default password to use when a user is created
+default_user_password: "{{ vault_default_user_password }}"
+
+# Map users' public key
+public_key:
+  john: "{{ vault_public_key_john }}"
+
+# Default DNS resolvers to use (here it's FDN and LDN)
+resolvers:
+  - 2001:910:800::40
+  - 80.67.169.12
+  - 2001:913::8
+  - 80.67.188.188
+
+# Domain to use in the DNS "search" resolver field
+main_domain: wirebrass.fr

@@ -1,0 +1,26 @@
+galaxy_info:
+  author: nemo
+  description: Set iptables for GNU/Linux.
+  company: Wirebrass
+
+  license: license (BSD)
+
+  min_ansible_version: 2.4
+
+  platforms:
+    - name: Debian
+      versions:
+        - stretch
+        - buster
+    - name: Gentoo
+      versions:
+        - all
+
+  galaxy_tags:
+    - iptables
+    - firewall
+    - system
+    - server
+    - security
+
+dependencies: []
