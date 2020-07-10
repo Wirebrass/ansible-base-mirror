@@ -1,14 +1,19 @@
 ---
+- name: Create SSH directory for munin-async user
+  file:
+    path: /var/spool/munin-async/.ssh
+    state: directory
+    mode: '0755'
 - name: Deploy private key to access other Munin async node
   copy:
-    dest: /home/munin-async/.ssh/id_rsa
+    dest: /var/spool/munin-async/.ssh/id_rsa
     owner: munin-async
     group: munin-async
     mode: '0600'
     content: "{{ private_key_munin_async_user_host }}"
 - name: Deploy public key to access other Munin async node
   copy:
-    dest: /home/munin-async/.ssh/id_rsa.pub
+    dest: /var/spool/munin-async/.ssh/id_rsa.pub
     owner: munin-async
     group: munin-async
     mode: '0644'
