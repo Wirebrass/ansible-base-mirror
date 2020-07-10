@@ -7,6 +7,10 @@ vault_public_key_<USER>: |
 vault_munin_admin_user: munin
 vault_munin_admin_password: munin
 
+vault_private_key_munin_async_user_host: |
+  SSH_PRIV_KEY_OF_munin_async_user_USER_ON_USER_HOST
+vault_public_key_munin_async_user_host: SSH_PUB_KEY_OF_munin_async_user_USER_ON_USER_HOST
+
 vault_private_key_backup_user_host: |
   SSH_PRIV_KEY_OF_backup_user_USER_ON_USER_HOST
 vault_public_key_backup_user_host: SSH_PUBKEY_OF_backup_user_USER_ON_BACKUP_HOST

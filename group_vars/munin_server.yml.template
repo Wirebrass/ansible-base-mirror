@@ -9,4 +9,7 @@ munin_hosts:
 munin_admin_user: "{{ vault_munin_admin_user }}"
 munin_admin_password: "{{ vault_munin_admin_password }}"
 
+private_key_munin_async_user_host: "{{ vault_private_key_munin_async_user_host }}"
+public_key_munin_async_user_host: "{{ vault_public_key_munin_async_user_host }}"
+
 munin_alerts: []

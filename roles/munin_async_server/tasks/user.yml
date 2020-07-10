@@ -1,0 +1,15 @@
+---
+- name: Deploy private key to access other Munin async node
+  copy:
+    dest: /home/munin-async/.ssh/id_rsa
+    owner: munin-async
+    group: munin-async
+    mode: '0600'
+    content: "{{ private_key_munin_async_user_host }}"
+- name: Deploy public key to access other Munin async node
+  copy:
+    dest: /home/munin-async/.ssh/id_rsa.pub
+    owner: munin-async
+    group: munin-async
+    mode: '0644'
+    content: "{{ public_key_munin_async_user_host + '\n' }}"

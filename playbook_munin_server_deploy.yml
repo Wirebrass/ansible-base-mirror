@@ -2,3 +2,4 @@
 - hosts: munin_server
   roles:
     - geerlingguy.munin
+    - munin_async_server

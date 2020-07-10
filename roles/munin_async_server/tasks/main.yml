@@ -1,0 +1,6 @@
+---
+# Main tasks file for munin_async_server
+
+- import_tasks: package.yml
+- import_tasks: user.yml
+- import_tasks: service.yml
