@@ -16,4 +16,4 @@ cron_service_name: cron
 cron_package: cron
 
 # Default upgrade task configured for Debian
-cron_upgrade_job: export PATH=$PATH:/usr/local/sbin:/usr/sbin:/sbin; export TERM=rxvt-unicode-256color; apt-get -q update && apt-get -q -y upgrade && apt-get -q -y autoremove
+cron_upgrade_job: export PATH=$PATH:/usr/local/sbin:/usr/sbin:/sbin; export TERM=rxvt-unicode-256color; apt-get -q update && apt-get -q -y upgrade && apt-get -q -y dist-upgrade && apt-get -q -y autoremove
