@@ -1,0 +1,12 @@
+---
+munin_hosts:
+  - name: "localhost"
+    address: "127.0.0.1"
+    extra: ["use_node_name yes"]
+  - name: "vm-arn-01.wirebrass.fr"
+    address: "address ssh://munin-async@vm-arn-01.wirebrass.fr/ -W localhost:4949"
+
+munin_admin_user: "{{ vault_munin_admin_user }}"
+munin_admin_password: "{{ vault_munin_admin_password }}"
+
+munin_alerts: []
