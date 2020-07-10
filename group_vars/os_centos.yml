@@ -6,8 +6,8 @@ ntp_package: ntp
 sudo_package: sudo
 
 # Service and package's name of CRON on Debian
-cron_service_name: cron
-cron_package: cron
+cron_service_name: crond
+cron_package: cronie
 
 # Sudoers' group name on Debian
 sudo_group: wheel
