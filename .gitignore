@@ -1,6 +1,6 @@
 group_vars/all/vault.yml
 roles/geerlingguy.munin
-host_vars/*.wirebrass.fr
+host_vars/*.wirebrass.fr*
 inventory_wirebrass.yml
 .vault-password
 *.retry
