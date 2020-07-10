@@ -4,6 +4,6 @@ vault_public_key_<USER>: |
   SSH_PUBKEY01_OF_<USER>
   SSH_PUBKEY02_OF_<USER>
 
-vault_private_key_backup_ser_host: |
+vault_private_key_backup_user_host: |
   SSH_PRIV_KEY_OF_backup_user_USER_ON_USER_HOST
 vault_public_key_backup_user_host: SSH_PUBKEY_OF_backup_user_USER_ON_BACKUP_HOST
