@@ -1,0 +1,4 @@
+---
+- hosts: munin_server
+  roles:
+    - geerlingguy.munin

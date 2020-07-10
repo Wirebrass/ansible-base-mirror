@@ -1,0 +1,9 @@
+---
+munin_hosts:
+  - name: "localhost"
+    address: "127.0.0.1"
+    extra: ["use_node_name yes"]
+  - name: "host.example.org"
+    address: "address ssh://munin-async@host.example.org/ -W localhost:4949"
+
+munin_alerts: []
