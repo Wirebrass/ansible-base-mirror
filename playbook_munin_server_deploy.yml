@@ -2,4 +2,6 @@
 - hosts: munin_server
   roles:
     - geerlingguy.munin
-    - munin_async_server
+    - munin_server
+    - geerlingguy.certbot
+    - geerlingguy.nginx

@@ -1,5 +1,0 @@
----
-- name: Munin async installed
-  package:
-    name: "{{ munin_async_package }}"
-    state: present

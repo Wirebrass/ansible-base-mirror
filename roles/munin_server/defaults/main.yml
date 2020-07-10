@@ -1,0 +1,13 @@
+---
+# defaults file for munin_async_server
+
+# Private/Public SSH keys of Munin async server to access all Munin async client account
+private_key_munin_user_host: ""
+public_key_munin_user_host: ""
+
+# Munin user and group
+munin_user: "munin"
+munin_group: "munin"
+
+# Munin user home directory
+munin_home_directory: "/var/lib/munin"

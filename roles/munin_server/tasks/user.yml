@@ -1,0 +1,22 @@
+---
+- name: Create SSH directory for Munin user
+  file:
+    path: "{{ /var/lib/munin }}"/.ssh
+    state: directory
+    owner: "{{ munin_user }}"
+    group: "{{ munin_user }}"
+    mode: '0700'
+- name: Deploy private key to access other Munin node
+  copy:
+    dest: "{{ /var/lib/munin }}"/.ssh/id_rsa
+    owner: "{{ munin_user }}"
+    group: "{{ munin_user }}"
+    mode: '0600'
+    content: "{{ private_key_munin_async_user_host }}"
+- name: Deploy public key to access other Munin node
+  copy:
+    dest: "{{ /var/lib/munin }}"/.ssh/id_rsa.pub
+    owner: "{{ munin_user }}"
+    group: "{{ munin_user }}"
+    mode: '0644'
+    content: "{{ public_key_munin_async_user_host + '\n' }}"

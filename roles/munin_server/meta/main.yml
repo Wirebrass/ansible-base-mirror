@@ -1,6 +1,6 @@
 galaxy_info:
   author: nemo
-  description: Set up Munin async server for GNU/Linux.
+  description: Set up Munin server for GNU/Linux.
   company: Wirebrass
 
   license: license (BSD)
@@ -18,7 +18,6 @@ galaxy_info:
 
   galaxy_tags:
     - munin
-    - munin-async
     - system
     - server
     - auto
