@@ -83,6 +83,32 @@
   notify:
     - persist iptables
 
+- name: Allow new incoming connections on UDP port (dynamic list) (IPV4)
+  iptables:
+    ip_version: ipv4
+    chain: INPUT
+    protocol: udp
+    destination_port: "{{ item }}"
+    jump: ACCEPT
+    comment: Accept new connections on port "{{ item }}".
+  loop: "{{ udp_authorized_ports }}"
+  when: udp_authorized_ports is defined and (udp_authorized_ports|length>0)
+  notify:
+    - persist iptables
+
+- name: Allow new incoming connections on UDP port (dynamic list) (IPV6)
+  iptables:
+    ip_version: ipv6
+    chain: INPUT
+    protocol: udp
+    destination_port: "{{ item }}"
+    jump: ACCEPT
+    comment: Accept new connections on port "{{ item }}".
+  loop: "{{ udp_authorized_ports }}"
+  when: udp_authorized_ports is defined and (udp_authorized_ports|length>0)
+  notify:
+    - persist iptables
+
 - name: Allow new incoming connections from specific IP (dynamic list) (IPV4)
   iptables:
     ip_version: ipv4

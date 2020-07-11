@@ -1,6 +1,6 @@
 galaxy_info:
   author: nemo
-  description: Set iptables for GNU/Linux.
+  description: Set iptables for GNU/Linux servers (but NOT routers).
   company: Wirebrass
 
   license: license (BSD)
