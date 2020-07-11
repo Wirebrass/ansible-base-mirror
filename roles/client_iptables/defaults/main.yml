@@ -10,3 +10,6 @@ udp_authorized_ports: []
 
 # All incoming authorized IP (all ports and all protocols)
 ip_authorized: []
+
+# Set to false to avoid iptables configure with this role
+configure_iptables: true

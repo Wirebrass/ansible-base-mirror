@@ -2,4 +2,6 @@
 # Main tasks file for client_iptables
 
 - import_tasks: package.yml
+  when: configure_iptables
 - import_tasks: iptables.yml
+  when: configure_iptables

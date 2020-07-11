@@ -24,6 +24,9 @@ All variables and default values are defined in `defaults/main.yml` :
     
     # All incoming authorized IP
     ip_authorized: []
+    
+    # Set to false to avoid iptables configure with this role
+    configure_iptables: true
 
 Dependencies
 ------------
