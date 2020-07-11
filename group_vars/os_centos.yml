@@ -23,3 +23,5 @@ tools_package:
   - grep
   - net-tools
 
+# Do not configure iptables/firewall with Ansible
+configure_iptables: false
