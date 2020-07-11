@@ -39,10 +39,11 @@ all:
   vars:
     ansible_user: ansible
     ansible_become: yes
+    ansible_python_interpreter: auto_silent
   children:
     function:
       children:
-        backup_server:
+        munin_server:
           hosts:
             myFirstGentooHost.example.org:
 	    ...
@@ -53,11 +54,17 @@ all:
           hosts:
             myFirstGentooHost.example.org:
             mySecondGentooHost.anotherexample.org:
+            ...
         os_debian:
           hosts:
             myFirstDebianHost.example.org:
             mySecondDebianHost.anotherexample.org:
 	    ...
+        os_centos:
+          hosts:
+            myFirstCentOSHost.example.org:
+            mySecondCentOSHost.anotherexample.org:
+            ...
         ...
 ```
 
@@ -89,7 +96,7 @@ You can also define host-specific variables (reboot/upgrade enable/disabe, cron 
 On the node, with the root account (or sudo) :
 
 * Install SSH, sudo and gentoolkit (if Gentoo) OR python-apt (if Debian) OR python-yum (if CentOS) ...
-* Enable and start SSH service.
+* Configure, enable and start SSH service.
 * Configure the ansible user :
 
 ```bash
@@ -131,8 +138,9 @@ ansible-playbook -i inventory_yourInventoryName.yml <playbook_name> --ask-vault-
 
 > Notes :
 >
-> * --diff option can be added to see the difference applied.
-> * --check option can be added to test the deployment without really do any action on the remote node (in some cases it fails even if the deployment will go well).
+> * `--diff` option can be added to see the difference applied.
+> * `--check` option can be added to test the deployment without really do any action on the remote node (in some cases it fails even if the deployment will go well).
+> * `--limit` option can be added to select host to configure (ex: `--limit os_gentoo`)
 
 Playbook deployment :
 
@@ -140,7 +148,7 @@ Playbook deployment :
 
 ### playbook_general_deploy.yml
 
-This playbook deploys general configuration : tools (useful packages), auto reboot, auto upgrade, sudo users, NTP client and DNS resolvers.
+This playbook deploys general configuration : tools (useful packages), auto reboot, auto upgrade, sudo users, NTP client, iptables config  and DNS resolvers.
 
 ### Other playbooks will be written...
 
