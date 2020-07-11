@@ -19,3 +19,6 @@ resolvers:
 
 # Domain to use in the DNS "search" resolver field
 main_domain: wirebrass.fr
+
+# Certbot admin Email address
+certbot_admin_email: contact@wirebrass.fr

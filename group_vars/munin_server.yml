@@ -1,11 +1,4 @@
 ---
-munin_hosts:
-  - name: "localhost"
-    address: "127.0.0.1"
-    extra: ["use_node_name yes"]
-  - name: "host.example.org"
-    address: "ssh://munin-async@host.example.org/ -W localhost:4949"
-
 munin_admin_user: "{{ vault_munin_admin_user }}"
 munin_admin_password: "{{ vault_munin_admin_password }}"
 
@@ -20,7 +13,6 @@ certbot_auto_renew_user: "root"
 certbot_auto_renew_hour: "3"
 certbot_auto_renew_minute: "30"
 certbot_auto_renew_options: "--quiet --no-self-upgrade"
-certbot_admin_email: contact@wirebrass.fr
 certbot_create_if_missing: true
 certbot_create_method: standalone
 certbot_create_standalone_stop_services:
@@ -54,8 +46,8 @@ nginx_vhosts:
       location /munin/ {
           auth_basic            "Restricted";
           auth_basic_user_file  /etc/munin/munin-htpasswd;
-
+       
           alias /var/cache/munin/www/;
           expires modified +310s;
       }
-
+    

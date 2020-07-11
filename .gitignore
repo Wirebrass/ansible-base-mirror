@@ -1,6 +1,5 @@
 group_vars/all/vault.yml
 host_vars/*.wirebrass.fr*
-group_vars/munin_server.yml
 roles/geerlingguy.*
 inventory_wirebrass.yml
 .vault-password
