@@ -3,3 +3,11 @@
   package:
     name: "iptables"
     state: present
+
+- name: iptables-persistent installed
+  package:
+    name: "iptables-persistent"
+    state: present
+  when: ansible_os_family == "Debian"
+  notify:
+    - persist iptables

@@ -1,37 +1,65 @@
 ---
-- name: Iptables installed
-  package:
-    name: "iptables"
-    state: present
-
-- name: Allow related and established connections
+- name: Allow related and established connections (IPV4)
   iptables:
+    ip_version: ipv4
     chain: INPUT
-    ctstate: ESTABLISHED,RELATED
+    ctstate: RELATED,ESTABLISHED
     jump: ACCEPT
+  notify:
+    - persist iptables
 
-- name: Allow incoming on localhost interface
+- name: Allow related and established connections (IPV6)
   iptables:
+    ip_version: ipv6
+    chain: INPUT
+    ctstate: RELATED,ESTABLISHED
+    jump: ACCEPT
+  notify:
+    - persist iptables
+
+- name: Allow incoming on localhost interface (IPV4)
+  iptables:
+    ip_version: ipv4
     chain: INPUT
     in_interface: lo
     jump: ACCEPT
+    comment: Accept localhost connection.
+  notify:
+    - persist iptables
 
-- name: Allow incoming ICMP
+- name: Allow incoming on localhost interface (IPV6)
   iptables:
+    ip_version: ipv6
+    chain: INPUT
+    in_interface: lo
+    jump: ACCEPT
+    comment: Accept localhost connection.
+  notify:
+    - persist iptables
+
+- name: Allow incoming ICMP (IPV4)
+  iptables:
+    ip_version: ipv4
     chain: INPUT
     protocol: icmp
     jump: ACCEPT
+    comment: Accept ICMP (ping) connection.
+  notify:
+    - persist iptables
 
-- name: Allow new incoming connections on TCP port 22 (SSH).
+- name: Allow incoming ICMPv6 (IPV6)
   iptables:
+    ip_version: ipv6
     chain: INPUT
-    protocol: tcp
-    destination_port: 22
+    protocol: ipv6-icmp
     jump: ACCEPT
-    comment: Accept new connections on port "22".
+    comment: Accept ICMPv6 (ping) connection.
+  notify:
+    - persist iptables
 
-- name: Allow new incoming connections on TCP port (dynamic list).
+- name: Allow new incoming connections on TCP port (dynamic list) (IPV4)
   iptables:
+    ip_version: ipv4
     chain: INPUT
     protocol: tcp
     destination_port: "{{ item }}"
@@ -39,22 +67,74 @@
     comment: Accept new connections on port "{{ item }}".
   loop: "{{ tcp_authorized_ports }}"
   when: tcp_authorized_ports is defined and (tcp_authorized_ports|length>0)
+  notify:
+    - persist iptables
 
-- name: Allow new incoming connections from specific IP (dynamic list).
+- name: Allow new incoming connections on TCP port (dynamic list) (IPV6)
   iptables:
+    ip_version: ipv6
+    chain: INPUT
+    protocol: tcp
+    destination_port: "{{ item }}"
+    jump: ACCEPT
+    comment: Accept new connections on port "{{ item }}".
+  loop: "{{ tcp_authorized_ports }}"
+  when: tcp_authorized_ports is defined and (tcp_authorized_ports|length>0)
+  notify:
+    - persist iptables
+
+- name: Allow new incoming connections from specific IP (dynamic list) (IPV4)
+  iptables:
+    ip_version: ipv4
     chain: INPUT
     source: "{{ item }}"
     jump: ACCEPT
     comment: Accept new connections from IP "{{ item }}".
   loop: "{{ ip_authorized }}"
   when: ip_authorized is defined and (ip_authorized|length>0)
+  notify:
+    - persist iptables
 
-- name: Set the policy for the FORWARD chain to DROP
+- name: Allow new incoming connections from specific IP (dynamic list) (IPV6)
   iptables:
+    ip_version: ipv6
+    chain: INPUT
+    source: "{{ item }}"
+    jump: ACCEPT
+    comment: Accept new connections from IP "{{ item }}".
+  loop: "{{ ip_authorized }}"
+  when: ip_authorized is defined and (ip_authorized|length>0)
+  notify:
+    - persist iptables
+
+- name: Set the policy for the FORWARD chain to DROP (IPV4)
+  iptables:
+    ip_version: ipv4
     chain: FORWARD
     policy: DROP
+  notify:
+    - persist iptables
 
-- name: Set the policy for the INPUT chain to DROP
+- name: Set the policy for the FORWARD chain to DROP (IPV6)
   iptables:
+    ip_version: ipv6
+    chain: FORWARD
+    policy: DROP
+  notify:
+    - persist iptables
+
+- name: Set the policy for the INPUT chain to DROP (IPV4)
+  iptables:
+    ip_version: ipv4
     chain: INPUT
     policy: DROP
+  notify:
+    - persist iptables
+
+- name: Set the policy for the INPUT chain to DROP (IPV6)
+  iptables:
+    ip_version: ipv6
+    chain: INPUT
+    policy: DROP
+  notify:
+    - persist iptables
