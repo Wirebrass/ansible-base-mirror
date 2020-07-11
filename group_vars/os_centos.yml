@@ -1,6 +1,6 @@
 # Service and package's name of NTP client on Debian
-ntp_service_name: ntpd
-ntp_package: ntp
+ntp_service_name: chronyd
+ntp_package: chrony
 
 # Package's name of sudo package on Debian
 sudo_package: sudo
@@ -23,5 +23,6 @@ tools_package:
   - grep
   - net-tools
 
-# Do not configure iptables/firewall with Ansible
-configure_iptables: false
+# Define iptables save files for CentOS
+iptables_save_file: /etc/sysconfig/iptables
+ip6tables_save_file: /etc/sysconfig/ip6tables
