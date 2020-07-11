@@ -17,7 +17,7 @@ All variables and default values are defined in `defaults/main.yml` :
 
     # All authorized TCP ports
     tcp_authorized_ports:
-      - 22
+      - '22'
     
     # All authorized UDP ports
     udp_authorized_ports: []
