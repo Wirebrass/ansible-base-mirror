@@ -23,7 +23,6 @@
     chain: INPUT
     in_interface: lo
     jump: ACCEPT
-    comment: Accept localhost connection.
   notify:
     - persist iptables
 
@@ -33,7 +32,6 @@
     chain: INPUT
     in_interface: lo
     jump: ACCEPT
-    comment: Accept localhost connection.
   notify:
     - persist iptables
 
@@ -43,7 +41,6 @@
     chain: INPUT
     protocol: icmp
     jump: ACCEPT
-    comment: Accept ICMP (ping) connection.
   notify:
     - persist iptables
 
@@ -53,7 +50,6 @@
     chain: INPUT
     protocol: ipv6-icmp
     jump: ACCEPT
-    comment: Accept ICMPv6 (ping) connection.
   notify:
     - persist iptables
 
@@ -64,7 +60,6 @@
     protocol: tcp
     destination_port: "{{ item }}"
     jump: ACCEPT
-    comment: Accept new connections on port "{{ item }}".
   loop: "{{ tcp_authorized_ports }}"
   when: tcp_authorized_ports is defined and (tcp_authorized_ports|length>0)
   notify:
@@ -77,7 +72,6 @@
     protocol: tcp
     destination_port: "{{ item }}"
     jump: ACCEPT
-    comment: Accept new connections on port "{{ item }}".
   loop: "{{ tcp_authorized_ports }}"
   when: tcp_authorized_ports is defined and (tcp_authorized_ports|length>0)
   notify:
@@ -90,7 +84,6 @@
     protocol: udp
     destination_port: "{{ item }}"
     jump: ACCEPT
-    comment: Accept new connections on port "{{ item }}".
   loop: "{{ udp_authorized_ports }}"
   when: udp_authorized_ports is defined and (udp_authorized_ports|length>0)
   notify:
@@ -103,7 +96,6 @@
     protocol: udp
     destination_port: "{{ item }}"
     jump: ACCEPT
-    comment: Accept new connections on port "{{ item }}".
   loop: "{{ udp_authorized_ports }}"
   when: udp_authorized_ports is defined and (udp_authorized_ports|length>0)
   notify:
@@ -115,7 +107,6 @@
     chain: INPUT
     source: "{{ item }}"
     jump: ACCEPT
-    comment: Accept new connections from IP "{{ item }}".
   loop: "{{ ip_authorized }}"
   when: ip_authorized is defined and (ip_authorized|length>0)
   notify:
@@ -127,7 +118,6 @@
     chain: INPUT
     source: "{{ item }}"
     jump: ACCEPT
-    comment: Accept new connections from IP "{{ item }}".
   loop: "{{ ip_authorized }}"
   when: ip_authorized is defined and (ip_authorized|length>0)
   notify:

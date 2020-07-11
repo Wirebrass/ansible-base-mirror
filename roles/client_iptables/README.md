@@ -27,6 +27,10 @@ All variables and default values are defined in `defaults/main.yml` :
     
     # Set to false to avoid iptables configure with this role
     configure_iptables: true
+    
+    # Iptables save files (Ipv4 and IPv6)
+    iptables_save_file: /etc/iptables/rules.v4
+    ip6tables_save_file: /etc/iptables/rules.v6
 
 Dependencies
 ------------

@@ -15,6 +15,10 @@ sudo_group: wheel
 # Command to run to execute a Gentoo update
 cron_upgrade_job: emerge --sync --quiet && emerge --quiet-build -uvDN @world && emerge --quiet-build @preserved-rebuild && emerge --depclean && eselect news read
 
+# Define iptables save files for Gentoo
+iptables_save_file: /var/lib/iptables/rules-save
+ip6tables_save_file: /var/lib/ip6tables/rules-save
+
 # Tools to install on Gentoo hosts
 tools_package:
   - bind-tools

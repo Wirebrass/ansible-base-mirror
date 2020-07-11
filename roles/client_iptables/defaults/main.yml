@@ -13,3 +13,7 @@ ip_authorized: []
 
 # Set to false to avoid iptables configure with this role
 configure_iptables: true
+
+# Iptables save files (Ipv4 and IPv6)
+iptables_save_file: /etc/iptables/rules.v4
+ip6tables_save_file: /etc/iptables/rules.v6
