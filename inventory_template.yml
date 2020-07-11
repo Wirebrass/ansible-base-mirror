@@ -2,10 +2,11 @@ all:
   vars:
     ansible_user: ansible
     ansible_become: yes
+    ansible_python_interpreter: auto_silent
   children:
     function:
       children:
-        backup_server:
+        munin_server:
           hosts:
             myFirstGentooHost.example.org:
     os:
@@ -18,3 +19,7 @@ all:
           hosts:
             myFirstDebianHost.example.org:
             mySecondDebianHost.anotherexample.org:
+        os_centos:
+          hosts:
+            myFirstCentOSHost.example.org:
+            mySecondCentOSHost.anotherexample.org:
