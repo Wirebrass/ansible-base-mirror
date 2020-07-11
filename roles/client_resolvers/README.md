@@ -22,6 +22,9 @@ All variables and default values are defined in `defaults/main.yml` :
     
     # Domain to use in the DNS "search" resolver field
     main_domain: wirebrass.fr 
+    
+    # Set to true if you want to configure resolvers with Ansible
+    configure_resolvers: true
 
 Dependencies
 ------------

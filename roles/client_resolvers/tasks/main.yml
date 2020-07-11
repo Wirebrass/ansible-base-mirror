@@ -2,3 +2,4 @@
 # Main tasks file for client_resolvers
 
 - import_tasks: resolv_conf.yml
+  when: configure_resolvers
