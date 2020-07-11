@@ -1,4 +1,9 @@
 ---
+- name: Firewalld NOT installed
+  package:
+    name: "firewalld"
+    state: absent
+
 - name: Iptables installed
   package:
     name: "iptables"
