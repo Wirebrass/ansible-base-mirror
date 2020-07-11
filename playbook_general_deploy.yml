@@ -8,3 +8,11 @@
     - client_tools
     - users_sudo
     - client_iptables
+
+- hosts: os_centos
+  roles:
+    - geerlingguy.munin-node
+
+- hosts: os_debian
+  roles:
+    - geerlingguy.munin-node
