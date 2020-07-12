@@ -23,5 +23,8 @@ main_domain: wirebrass.fr
 # Certbot admin Email address
 certbot_admin_email: contact@wirebrass.fr
 
+# Admin email (for system notification)
+system_admin_email: nemo@wirebrass.fr
+
 # Munin server SSH pubkey
 public_key_munin_user_host: "{{ vault_public_key_munin_user_host }}"

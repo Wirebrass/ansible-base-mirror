@@ -3,7 +3,7 @@
   roles:
 #    - auto_reboot
 #    - auto_upgrade
-    - sysctl_customizations
+#    - sysctl_customizations
 #    - client_ntp
 #    - client_resolvers
 #    - client_tools
@@ -11,3 +11,4 @@
 #    - client_iptables
 #    - munin-node
 #    - munin-async
+    - postfix
