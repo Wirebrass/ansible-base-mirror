@@ -1,0 +1,6 @@
+---
+- sysctl:
+    name: vm.swappiness
+    value: "{{ sysctl_vm_swapiness }}"
+    state: present
+    sysctl_file: "{{ sysctl_config_file }}"
