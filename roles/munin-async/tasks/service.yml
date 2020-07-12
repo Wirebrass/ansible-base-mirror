@@ -1,0 +1,6 @@
+---
+- name: Munin async enabled
+  service:
+    name: "{{ munin_async_service_name }}"
+    state: started
+    enabled: yes

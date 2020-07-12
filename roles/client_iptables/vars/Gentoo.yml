@@ -1,0 +1,3 @@
+---
+iptables_save_file: /var/lib/iptables/rules-save
+ip6tables_save_file: /var/lib/ip6tables/rules-save

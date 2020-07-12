@@ -1,23 +1,5 @@
-# Service and package's name of NTP client on Gentoo
-ntp_service_name: ntpd
-ntp_package: ntp
-
-# Package's name of sudo package on Gentoo
-sudo_package: sudo
-
-# Service and package's name of CRON on Gentoo
-cron_service_name: cronie
-cron_package: cronie
-
-# Sudoers' group name on Gentoo
-sudo_group: wheel
-
 # Command to run to execute a Gentoo update
 cron_upgrade_job: emerge --sync --quiet && emerge --quiet-build -uvDN @world && emerge --quiet-build @preserved-rebuild && emerge --depclean && eselect news read
-
-# Define iptables save files for Gentoo
-iptables_save_file: /var/lib/iptables/rules-save
-ip6tables_save_file: /var/lib/ip6tables/rules-save
 
 # Tools to install on Gentoo hosts
 tools_package:

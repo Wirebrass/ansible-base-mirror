@@ -1,5 +1,9 @@
 ---
 # Main tasks file for auto_reboot
 
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+  when: auto_reboot
+
 - import_tasks: package.yml
 - import_tasks: crontask.yml

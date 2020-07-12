@@ -1,0 +1,13 @@
+---
+# Main tasks file for munin-async
+
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+  when: "'munin_server' not in group_names"
+
+- import_tasks: package.yml
+  when: "'munin_server' not in group_names"
+- import_tasks: service.yml
+  when: "'munin_server' not in group_names"
+- import_tasks: user.yml
+  when: "'munin_server' not in group_names"

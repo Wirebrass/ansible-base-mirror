@@ -1,6 +1,10 @@
 ---
 # Main tasks file for client_iptables
 
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+  when: configure_iptables
+
 - import_tasks: package.yml
   when: configure_iptables
 - import_tasks: iptables.yml

@@ -1,0 +1,12 @@
+---
+# defaults file for munin-async
+
+# Name of the munin-async service and munin-async package (depends on your OS, can be munin-async, munin-asyncd...)
+munin_async_service_name: munin-asyncd
+munin_async_package: munin-async
+
+# SSH pubkey of Munin server
+munin_async_authorized_key: "{{ public_key_munin_user_host }}"
+
+# Munin async user
+munin_async_user: munin-async

@@ -1,0 +1,8 @@
+---
+- name: Set up authorized key for Munin async user
+  authorized_key:
+    user: "{{ munin_async_user }}"
+    state: present
+    key: "{{ munin_async_authorized_key }}"
+  when: munin_async_authorized_key is defined
+

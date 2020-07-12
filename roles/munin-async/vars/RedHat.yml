@@ -1,0 +1,4 @@
+---
+munin_async_service_name: munin-asyncd
+munin_async_package: munin-node
+munin_async_user: munin
