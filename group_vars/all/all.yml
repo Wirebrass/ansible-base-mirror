@@ -23,6 +23,3 @@ main_domain: wirebrass.fr
 # Certbot admin Email address
 certbot_admin_email: contact@wirebrass.fr
 
-# Bind munin-node to localhost
-munin_node_bind_host: "127.0.0.1"
-

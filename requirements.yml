@@ -2,4 +2,3 @@
 - name: geerlingguy.munin
 - name: geerlingguy.nginx
 - name: geerlingguy.certbot
-- name: geerlingguy.munin-node

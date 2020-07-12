@@ -1,18 +1,12 @@
 ---
 - hosts: all
   roles:
-    - auto_reboot
-    - auto_upgrade
-    - client_ntp
-    - client_resolvers
-    - client_tools
-    - users_sudo
-    - client_iptables
+#    - auto_reboot
+#    - auto_upgrade
+#    - client_ntp
+#    - client_resolvers
+#    - client_tools
+#    - users_sudo
+#    - client_iptables
+    - munin-node
 
-- hosts: os_centos
-  roles:
-    - geerlingguy.munin-node
-
-- hosts: os_debian
-  roles:
-    - geerlingguy.munin-node
