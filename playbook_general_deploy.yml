@@ -1,14 +1,14 @@
 ---
 - hosts: all
   roles:
-#    - auto_reboot
-#    - auto_upgrade
-#    - sysctl_customizations
-#    - client_ntp
-#    - client_resolvers
-#    - client_tools
-#    - users_sudo
-#    - client_iptables
-#    - munin-node
-#    - munin-async
+    - auto_reboot
+    - auto_upgrade
+    - sysctl_customizations
+    - client_ntp
+    - client_resolvers
+    - client_tools
+    - users_sudo
+    - client_iptables
+    - munin-node
+    - munin-async
     - postfix
