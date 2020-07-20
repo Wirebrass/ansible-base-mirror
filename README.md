@@ -4,7 +4,7 @@
 
 This document describes how to use ansible-base to deploy basic infrastructures.
 
-The main parts of this document are :
+The main parts of this document are:
 
 * Ansible "server" (or local machine) preparation
 * Nodes preparation
@@ -14,25 +14,28 @@ The main parts of this document are :
 
 Update and install Ansible and GIT on your system.
 
-Clone this repo (ssh pubkey needs to be authorized for this repo) and go into the cloned directory :
+Clone this repo (ssh pubkey needs to be authorized for this repo) and go into the cloned directory:
 
 ```bash
 git clone https://git.grifon.fr/nemo/ansible-base.git
 cd ansible-core
 ```
 
-Download roles dependecies (currenty not used) :
+Download roles dependecies (currenty not used):
 
 ```ansible-galaxy install -r requirements.yml -p ./roles/```
 
-Copy the template inventory and edit the new file to add your node(s) in the corresponding `function` section and `os` section :
+Copy the template inventory folder and edit all subfiles to add your node(s) and other informations:
 
 ```bash
-cp inventory_template.yml inventory_yourInventoryName.yml
-vi inventory_yourInventoryName.yml
+cp -R inventory_template inventory_yourInventoryName
 ```
 
-Example with template values :
+> Note: you can create a dedicated private GIT repository to manage your inventory.
+
+The main inventory file is: `inventory_yourInventoryName/inventory.yml`
+
+Example with template values:
 
 ```bash
 all:
@@ -68,32 +71,31 @@ all:
         ...
 ```
 
-> Note : the node's name needs to be reachable, you can use IP address or FQDN (recommended).
-> WARNING : if you don't want to publish your inventory in the SCM system, add the filename in your .gitignore file (if you're using GIT).
+> Note: the node's name needs to be reachable, you can use IP address or FQDN (recommended).
 
-Create a vault file for all nodes using the vault template file and define all values :
-
-```bash
-cp group_vars/all/vault.yml.template group_vars/all/vault.yml
-vim group_vars/all/vault.yml
-```
-
-Encrypt the vault file and check if edit function works. A prompt will ask you a password :
+Create a vault file for all nodes using the vault template file and define all values:
 
 ```bash
-ansible-vault encrypt group_vars/all/vault.yml
-ansible-vault edit group_vars/all/vault.yml
+cp inventory_yourInventoryName/group_vars/vault.yml.template inventory_yourInventoryName/group_vars/vault.yml
+vim inventory_yourInventoryName/group_vars/vault.yml
 ```
 
-> Note : if you version your code, don't forget to exclude this vault file of versionning (with .`gitignore file` if you are using GIT).
+Encrypt the vault file and check if edit function works. A prompt will ask you a password:
 
-According to your needs, you can edit all variables in `group_vars` directory and subdirectories.
+```bash
+ansible-vault encrypt inventory_yourInventoryName/group_vars/vault.yml
+ansible-vault edit inventory_yourInventoryName/group_vars/vault.yml
+```
 
-You can also define host-specific variables (reboot/upgrade enable/disabe, cron hours, specific config, ...) in the host_vars directory (host.example.org is a commented example). Don't forget to update .gitignore if you don't want to publish some host vars.
+> Note: if you version your code, don't forget to exclude this vault file of versionning (with .`gitignore file` if you are using GIT).
+
+According to your needs, you can edit all variables in `inventory_yourInventoryName/group_vars` directory and subdirectories.
+
+You can also define host-specific variables (reboot/upgrade enable/disabe, cron hours, specific config, ...) in the `inventory_yourInventoryName/host_vars` directory (host.example.org is an example). Don't forget to update .gitignore if you don't want to publish some host vars.
 
 ## Nodes preparation
 
-On the node, with the root account (or sudo) :
+On the node, with the root account (or sudo):
 
 * Install SSH, sudo and gentoolkit (if Gentoo) OR python-apt (if Debian) OR python-yum (if CentOS) ...
 * Configure, enable and start SSH service.
@@ -119,9 +121,9 @@ mkdir -p .ssh
 vi .ssh/authorized_keys # Here add pubkey
 ```
 
-> Note : this procedure can vary slightly if you're not using a Debian or  CentOS node.
+> Note: this procedure can vary slightly if you're not using a Debian or  CentOS node.
 
-On the Ansible server (or local machine), check the SSH connection :
+On the Ansible server (or local machine), check the SSH connection:
 
 ```bash
 ssh ansible@<YOUR_MANAGED_NODE>
@@ -130,25 +132,25 @@ exit
 
 ## Deployment
 
-From the Ansible server (or your local machine), you can deploy specific playbooks using the following command :
+From the Ansible server (or your local machine), you can deploy specific playbooks using the following command:
 
 ```bash
-ansible-playbook -i inventory_yourInventoryName.yml <playbook_name> --ask-vault-pass
+ansible-playbook -i inventory_yourInventoryName/inventory.yml <playbook_name> --ask-vault-pass
 ```
 
-> Notes :
+> Notes:
 >
 > * `--diff` option can be added to see the difference applied.
 > * `--check` option can be added to test the deployment without really do any action on the remote node (in some cases it fails even if the deployment will go well).
 > * `--limit` option can be added to select host to configure (ex: `--limit os_gentoo`)
 
-Playbook deployment :
+Playbook deployment:
 
 * playbook_general_deploy.yml
 
 ### playbook_general_deploy.yml
 
-This playbook deploys general configuration : tools (useful packages), auto reboot, auto upgrade, sudo users, NTP client, iptables config  and DNS resolvers.
+This playbook deploys general configuration: tools (useful packages), auto reboot, auto upgrade, sudo users, NTP client, iptables config  and DNS resolvers.
 
 ### Other playbooks will be written...
 
