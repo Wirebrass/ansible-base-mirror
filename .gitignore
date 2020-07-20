@@ -2,4 +2,5 @@ roles/geerlingguy.*
 .vault-password
 *.retry
 inventory*
+!inventory_template/inventory.yml
 !inventory_template*
