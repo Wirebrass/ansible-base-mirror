@@ -1,0 +1,5 @@
+# IPv4
+ifconfig-push {{ ccd_ipv4 }} {{ ccd_network }}
+
+# IPv6
+ifconfig-ipv6-push {{ ccd_ipv6_with_prefix }}

@@ -1,0 +1,30 @@
+---
+# Sudo users on all servers
+sudo_users:
+  - user01
+
+# Hash of default password to use when a user is created
+default_user_password: "{{ vault_default_user_password }}"
+
+# Map users' public key
+public_key:
+  user01: "{{ vault_public_key_user01 }}"
+
+# Default DNS resolvers to use (here it's FDN and LDN)
+resolvers:
+  - 2001:910:800::40
+  - 80.67.169.12
+  - 2001:913::8
+  - 80.67.188.188
+
+# Domain to use in the DNS "search" resolver field
+main_domain: example.org
+
+# Certbot admin Email address
+certbot_admin_email: admin@example.org
+
+# Admin email (for system notification)
+system_admin_email: admin@example.org
+
+# Munin server SSH pubkey
+public_key_munin_user_host: "{{ vault_public_key_munin_user_host }}"
