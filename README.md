@@ -76,20 +76,20 @@ all:
 Create a vault file for all nodes using the vault template file and define all values:
 
 ```bash
-cp inventory_yourInventoryName/group_vars/vault.yml.template inventory_yourInventoryName/group_vars/vault.yml
-vim inventory_yourInventoryName/group_vars/vault.yml
+cp inventory_yourInventoryName/group_vars/all/vault.yml.template inventory_yourInventoryName/group_vars/all/vault.yml
+vim inventory_yourInventoryName/group_vars/all/vault.yml
 ```
 
 Encrypt the vault file and check if edit function works. A prompt will ask you a password:
 
 ```bash
-ansible-vault encrypt inventory_yourInventoryName/group_vars/vault.yml
-ansible-vault edit inventory_yourInventoryName/group_vars/vault.yml
+ansible-vault encrypt inventory_yourInventoryName/group_vars/all/vault.yml
+ansible-vault edit inventory_yourInventoryName/group_vars/all/vault.yml
 ```
 
 > Note: if you version your code, don't forget to exclude this vault file of versionning (with .`gitignore file` if you are using GIT).
 
-According to your needs, you can edit all variables in `inventory_yourInventoryName/group_vars` directory and subdirectories.
+According to your needs, you can edit all variables in `inventory_yourInventoryName` directory and subdirectories.
 
 You can also define host-specific variables (reboot/upgrade enable/disabe, cron hours, specific config, ...) in the `inventory_yourInventoryName/host_vars` directory (host.example.org is an example). Don't forget to update .gitignore if you don't want to publish some host vars.
 
