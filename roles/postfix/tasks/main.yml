@@ -24,6 +24,8 @@
       value: "{{ postfix_inet_interfaces }}"
     - name: inet_protocols
       value: "{{ postfix_inet_protocols }}"
+    - name: myhostname
+      value: "{{ inventory_hostname }}"
   notify: restart postfix
 
 - name: Ensure postfix is started and enabled at boot.
