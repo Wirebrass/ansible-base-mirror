@@ -9,6 +9,9 @@ all:
         munin_server:
           hosts:
             myFirstGentooHost.example.org:
+        ldap_server:
+          hosts:
+            mySecondGentooHost.anotherexample.org:
     os:
       children:
         os_gentoo:

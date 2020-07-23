@@ -1,4 +1,5 @@
 roles/geerlingguy.*
+roles/criecm.*
 .vault-password
 *.retry
 inventory*
