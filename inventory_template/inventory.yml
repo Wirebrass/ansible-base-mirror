@@ -6,6 +6,9 @@ all:
   children:
     function:
       children:
+        backup_server:
+          hosts:
+            myFirstDebianHost.example.org:
         munin_server:
           hosts:
             myFirstGentooHost.example.org:

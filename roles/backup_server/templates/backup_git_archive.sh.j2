@@ -1,0 +1,13 @@
+#!/bin/bash
+
+borg list {{ backup_folder }}/{{ backup_user_git }}-archives &>/dev/null
+
+if [ $? -ne 0 ]
+then
+    mkdir -p {{ backup_folder }}/{{ backup_user_git }}-archives -m 0740
+    export BORG_PASSPHRASE=""
+    borg init --encryption=repokey {{ backup_folder }}/{{ backup_user_git }}-archives
+fi
+
+borg prune -v {{ backup_folder }}/{{ backup_user_git }}-achives --keep-daily=7 --keep-weekly=4 --keep-monthly=1
+borg create --info --stats {{ backup_folder }}/{{ backup_user_git }}-archives::$(date +%F) $(find {{ backup_folder }}/{{ backup_user_git }}/ -maxdepth 1 -type d | tr '\n' ' ')

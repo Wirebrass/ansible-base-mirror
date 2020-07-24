@@ -1,0 +1,20 @@
+---
+- name: GIT backup crontask configured
+  cron:
+    name: "GIT backup"
+    user: "{{ backup_user_git }}"
+    weekday: "{{ backup_git_cron_weekday }}"
+    hour: "{{ backup_git_cron_hour }}"
+    minute: "{{ backup_git_cron_minute }}"
+    job: "{{ backup_scripts_folder }}/backup_git.sh"
+  notify: restart cron
+
+- name: GIT archives backup crontask configured
+  cron:
+    name: "GIT Archive Backup"
+    user: "{{ backup_user_git }}"
+    weekday: "{{ backup_git_archive_cron_weekday }}"
+    hour: "{{ backup_git_archive_cron_hour }}"
+    minute: "{{ backup_git_archive_cron_minute }}"
+    job: "{{ backup_scripts_folder }}/backup_git_archive.sh"
+  notify: restart cron

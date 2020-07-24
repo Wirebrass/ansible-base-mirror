@@ -1,0 +1,29 @@
+---
+- name: "Backup user GIT created"
+  user:
+    name: "{{ backup_user_git }}"
+    password: "!"
+
+- name: GIT backup SSH folder created
+  file:
+    path: "/home/{{ backup_user_git }}/.ssh"
+    state: directory
+    owner: "{{ backup_user_git }}"
+    group: "{{ backup_user_git }}"
+    mode: '0755'
+
+- name: Private key to access GIT repository in RO deployed
+  copy:
+    dest: "/home/{{ backup_user_git }}/.ssh/id_rsa"
+    owner: "{{ backup_user_git }}"
+    group: "{{ backup_user_git }}"
+    mode: '0600'
+    content: "{{ private_key_backup_user_host }}"
+
+- name: Public key to access GIT repository in RO deployed
+  copy:
+    dest: "/home/{{ backup_user_git }}/.ssh/id_rsa.pub"
+    owner: "{{ backup_user_git }}"
+    group: "{{ backup_user_git }}"
+    mode: '0644'
+    content: "{{ public_key_backup_user_host + '\n' }}"

@@ -1,0 +1,4 @@
+---
+cron_service_name: cron
+cron_package: cron
+aliases_config_file: /etc/aliases

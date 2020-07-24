@@ -2,10 +2,7 @@
 private_key_backup_user_host: "{{ vault_private_key_backup_user_host }}"
 public_key_backup_user_host: "{{ vault_public_key_backup_user_host }}"
 
-# All GIT repositories to backup
-git_repo_to_backup:
-  - ansible-base
-
-# Ports allowed by iptables
-tcp_authorized_ports:
-  - 22
+# GIT repositories to backup
+git_repositories:
+  - https://git.example.org/user/template-repository.git
+  - git@git.example.org:user/template-repository.git

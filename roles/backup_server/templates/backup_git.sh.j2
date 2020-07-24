@@ -1,0 +1,21 @@
+#!/bin/bash
+
+{% for git_repo in git_repositories %}
+if [ ! -d {{ backup_folder }}/{{ backup_user_git }}/{{ git_repo | basename }} ]; then
+	cd {{ backup_folder }}/{{ backup_user_git }}
+	GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" git clone --mirror {{ git_repo }}
+fi
+
+cd {{ backup_folder }}/{{ backup_user_git }}/{{ git_repo | basename }}
+GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" git remote update
+
+if [ ! -d {{ backup_folder }}/{{ backup_user_git }}/{{ (git_repo | basename | splitext)[0] }} ]; then
+	cd {{ backup_folder }}/{{ backup_user_git }}
+	GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" git clone {{ git_repo }}
+fi
+
+cd {{ backup_folder }}/{{ backup_user_git }}/{{ (git_repo | basename | splitext)[0] }}
+GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" git fetch --all
+
+{% endfor %}
+

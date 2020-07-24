@@ -1,0 +1,12 @@
+---
+# Main tasks file for backup_server
+
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- import_tasks: user_git.yml
+- import_tasks: package.yml
+- import_tasks: folders.yml
+- import_tasks: scripts.yml
+- import_tasks: crontasks.yml
+- import_tasks: aliases.yml

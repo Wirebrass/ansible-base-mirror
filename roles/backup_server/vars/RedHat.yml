@@ -1,0 +1,4 @@
+---
+cron_service_name: crond
+cron_package: cronie
+aliases_config_file: /etc/aliases

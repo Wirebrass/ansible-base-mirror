@@ -1,0 +1,16 @@
+---
+- name: Cron installed
+  package:
+    name: "{{ cron_package }}"
+    state: present
+  notify: restart cron
+
+- name: GIT installed
+  package:
+    name: "{{ git_package }}"
+    state: present
+
+- name: BorgBackup installed
+  package:
+    name: "{{ borgbackup_package }}"
+    state: present

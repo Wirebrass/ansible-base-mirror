@@ -1,0 +1,24 @@
+---
+- name: Backup folder created
+  file:
+    path: "{{ backup_folder }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: GIT backup folder created
+  file:
+    path: "{{ backup_folder }}/{{ backup_user_git }}"
+    state: directory
+    owner: "{{ backup_user_git }}"
+    group: "{{ backup_user_git }}"
+    mode: '0700'
+
+- name: GIT archives backup folder created
+  file:
+    path: "{{ backup_folder }}/{{ backup_user_git }}-archives"
+    state: directory
+    owner: "{{ backup_user_git }}"
+    group: "{{ backup_user_git }}"
+    mode: '0700'

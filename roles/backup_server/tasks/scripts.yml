@@ -1,0 +1,16 @@
+---
+- name: Deploy GIT backup script
+  template:
+    src: backup_git.sh.j2
+    dest: "{{ backup_scripts_folder }}/backup_git.sh"
+    owner: "{{ backup_user_git }}"
+    group: "{{ backup_user_git }}"
+    mode: '0740'
+
+- name: Deploy Archive backup script
+  template:
+    src: backup_git_archive.sh.j2
+    dest: "{{ backup_scripts_folder }}/backup_git_archive.sh"
+    owner: "{{ backup_user_git }}"
+    group: "{{ backup_user_git }}"
+    mode: '0740'
