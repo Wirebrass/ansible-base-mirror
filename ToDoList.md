@@ -2,8 +2,7 @@
 
 * Complete iptables role for routers (FORWARD, NAT, ...).
 * Complete sysctl customizations role for routers (forward) and RA.
-* Create postfix (client) configuration.
-* Create backup roles (server and clients) + git clone --mirror of the GIT repositories to backup them.
+* Create backup roles (server and clients).
 * Create Icinga2 server and clients roles.
 * Add a pre-task which can install python-apt, gentoolkit or python-yum if not installed (with shell module).
 * Add roles for different function:
