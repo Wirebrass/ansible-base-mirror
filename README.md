@@ -46,6 +46,9 @@ all:
   children:
     function:
       children:
+        backup_server:
+          hosts:
+            mySecondGentooHost.example.org:
         munin_server:
           hosts:
             myFirstGentooHost.example.org:
@@ -146,11 +149,19 @@ ansible-playbook -i inventory_yourInventoryName/inventory.yml <playbook_name> --
 
 Playbook deployment:
 
-* playbook_general_deploy.yml
+* `playbook_general_deploy.yml`
+* `playbook_backup_server_deploy.yml`
+* `playbook_munin_server_deploy.yml`
 
 ### playbook_general_deploy.yml
 
 This playbook deploys general configuration: tools (useful packages), auto reboot, auto upgrade, sudo users, NTP client, iptables config  and DNS resolvers.
 
-### Other playbooks will be written...
+### playbook_backup_server_deploy.yml
+
+This playbook deploys a backup server with dedicated user to save GIT repositories to backup (use Ansible vars to list them). In a future, it will also configure users for each server to backup.
+
+### playbook_munin_server_deploy.yml
+
+This playbook deploys a Munin server using async to get information from "clients". He integrates HTTPS configuration and configuration generation with Ansible vars. The clients need to have beend deployed with the `playbook_general_deploy.yml` playbook (whichh includes munin-async role).
 
