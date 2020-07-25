@@ -16,6 +16,7 @@ fi
 
 cd {{ backup_folder }}/{{ backup_user_git }}/{{ (git_repo | basename | splitext)[0] }}
 GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" git fetch --all
+GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" git pull
 
 {% endfor %}
 
