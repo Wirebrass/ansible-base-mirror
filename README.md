@@ -150,18 +150,18 @@ ansible-playbook -i inventory_yourInventoryName/inventory.yml <playbook_name> --
 Playbook deployment:
 
 * `playbook_general_deploy.yml`
-* `playbook_backup_server_deploy.yml`
-* `playbook_munin_server_deploy.yml`
+* `playbook_backup_deploy.yml`
+* `playbook_munin_deploy.yml`
 
 ### playbook_general_deploy.yml
 
 This playbook deploys general configuration: tools (useful packages), auto reboot, auto upgrade, sudo users, NTP client, iptables config  and DNS resolvers.
 
-### playbook_backup_server_deploy.yml
+### playbook_backup_deploy.yml
 
-This playbook deploys a backup server with dedicated user to save GIT repositories to backup (use Ansible vars to list them). In a future, it will also configure users for each server to backup.
+This playbook deploys a backup server with a dedicated user to save GIT repositories to backup (use Ansible vars to list them). Furthermore, it configures users for each server to backup and configure "client" servers to send backups through SSH (pubkey authent).
 
-### playbook_munin_server_deploy.yml
+### playbook_munin_deploy.yml
 
-This playbook deploys a Munin server using async to get information from "clients". He integrates HTTPS configuration and configuration generation with Ansible vars. The clients need to have beend deployed with the `playbook_general_deploy.yml` playbook (whichh includes munin-async role).
+This playbook deploys a Munin server and Munin "clients" using async to get information from "clients". He integrates HTTPS configuration and configuration generation with Ansible vars.
 
