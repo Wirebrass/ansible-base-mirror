@@ -1,0 +1,18 @@
+---
+# Main tasks file for backup_server
+
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- import_tasks: user_backup.yml
+  when: backup_client_folders_to_backup != ""
+- import_tasks: package.yml
+  when: backup_client_folders_to_backup != ""
+- import_tasks: script.yml
+  when: backup_client_folders_to_backup != ""
+- import_tasks: crontask.yml
+  when: backup_client_folders_to_backup != ""
+- import_tasks: aliases.yml
+  when: backup_client_folders_to_backup != ""
+- import_tasks: server.yml
+  when: "'backup_server' not in group_names and backup_client_folders_to_backup != \"\""

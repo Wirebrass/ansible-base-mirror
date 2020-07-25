@@ -1,0 +1,12 @@
+---
+- name: Backup client crontask configured
+  cron:
+    name: "Backup client"
+    user: "{{ backup_client_user }}"
+    weekday: "{{ backup_client_cron_weekday }}"
+    hour: "{{ backup_client_cron_hour }}"
+    minute: "{{ backup_client_cron_minute }}"
+    job: "{{ backup_client_scripts_folder }}/backup.sh"
+  when: backup_client_folders_to_backup != ""
+  notify: restart cron
+

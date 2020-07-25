@@ -1,0 +1,13 @@
+---
+- name: Cron installed
+  package:
+    name: "{{ cron_package }}"
+    state: present
+  when: backup_client_folders_to_backup != ""
+  notify: restart cron
+
+- name: BorgBackup installed
+  package:
+    name: "{{ borgbackup_package }}"
+    state: present
+  when: backup_client_folders_to_backup != ""

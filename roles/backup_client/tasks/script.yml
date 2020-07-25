@@ -1,0 +1,10 @@
+---
+- name: Deploy client backup script
+  template:
+    src: backup.sh.j2
+    dest: "{{ backup_client_scripts_folder }}/backup.sh"
+    owner: "{{ backup_client_user }}"
+    group: "{{ backup_client_user }}"
+    mode: '0740'
+  when: backup_client_folders_to_backup != ""
+

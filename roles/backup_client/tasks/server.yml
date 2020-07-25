@@ -1,0 +1,30 @@
+---
+- name: "Read backup SSH pubkey and register"
+  slurp:
+   src: "{{ backup_client_user_home }}/.ssh/id_rsa.pub"
+  register: ssh_backup_pubkey
+
+- name: "Backup user created on backup server"
+  user:
+    name: "backup-{{ inventory_hostname_short }}"
+    create_home: yes
+  delegate_to: "{{ item }}"
+  loop: "{{ groups['backup_server'] }}"
+
+- name: "Backup directory created on backup server"
+  file:
+    path: "{{ hostvars[item]['backup_folder'] }}/{{ inventory_hostname_short }}"
+    owner: "backup-{{ inventory_hostname_short }}"
+    group: "backup-{{ inventory_hostname_short }}"
+    mode: "0700"
+    state: directory
+  delegate_to: "{{ item }}"
+  loop: "{{ groups['backup_server'] }}"
+
+- name: "Authorized key defined for backup user on backup server"
+  authorized_key:
+    user: "backup-{{ inventory_hostname_short }}"
+    state: present
+    key: "{{ ssh_backup_pubkey['content'] | b64decode }}"
+  delegate_to: "{{ item }}"
+  loop: "{{ groups['backup_server'] }}"

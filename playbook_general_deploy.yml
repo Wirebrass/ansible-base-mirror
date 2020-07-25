@@ -9,6 +9,4 @@
     - client_tools
     - users_sudo
     - client_iptables
-    - munin-node
-    - munin-async
     - postfix

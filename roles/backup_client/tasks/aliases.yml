@@ -1,0 +1,8 @@
+---
+- name: Update mail aliases.
+  lineinfile:
+    dest: "{{ aliases_config_file }}"
+    line: "{{ backup_client_user }}: {{ backup_client_mail_target }}"
+    regexp: "^{{ backup_client_user }}:"
+  when: backup_client_mail_target != backup_client_user and backup_client_folders_to_backup != ""
+  notify: update aliases

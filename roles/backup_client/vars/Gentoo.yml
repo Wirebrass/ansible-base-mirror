@@ -1,0 +1,4 @@
+---
+cron_service_name: cronie
+cron_package: cronie
+aliases_config_file: /etc/mail/aliases

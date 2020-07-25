@@ -1,0 +1,8 @@
+---
+- hosts: all,!backup_server
+  roles:
+    - backup_client
+
+- hosts: backup_server
+  roles:
+    - backup_server

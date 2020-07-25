@@ -1,4 +1,0 @@
----
-- hosts: backup_server
-  roles:
-    - backup_server

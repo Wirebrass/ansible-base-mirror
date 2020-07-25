@@ -1,4 +1,9 @@
 ---
+- hosts: all
+  roles:
+    - munin-node
+    - munin-async
+
 - hosts: munin_server
   roles:
     - geerlingguy.munin

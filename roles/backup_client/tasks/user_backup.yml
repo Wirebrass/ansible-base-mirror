@@ -1,0 +1,6 @@
+---
+- name: "Client backup user created"
+  user:
+    name: "{{ backup_client_user }}"
+    generate_ssh_key: yes
+  when: backup_client_folders_to_backup != ""

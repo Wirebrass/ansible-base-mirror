@@ -4,4 +4,5 @@
     dest: "{{ aliases_config_file }}"
     line: "{{ backup_user_git }}: {{ backup_git_mail_target }}"
     regexp: "^{{ backup_user_git }}:"
+  when: backup_user_git != backup_git_mail_target
   notify: update aliases

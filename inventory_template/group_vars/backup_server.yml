@@ -6,3 +6,6 @@ public_key_backup_user_host: "{{ vault_public_key_backup_user_host }}"
 git_repositories:
   - https://git.example.org/user/template-repository.git
   - git@git.example.org:user/template-repository.git
+
+# Destination backup folder
+backup_folder: "/data"
