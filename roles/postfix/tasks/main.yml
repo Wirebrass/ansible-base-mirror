@@ -1,18 +1,20 @@
 ---
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
+  when: "'mail_server' not in group_names"
 
 - name: Ensure postfix is installed.
   package:
     name: postfix
     state: present
+  when: "'mail_server' not in group_names"
 
 - name: Update mail aliases.
   lineinfile:
     dest: "{{ aliases_config_file }}"
     line: "root: {{ alias_email }}"
     regexp: "^root:"
-  when: alias_email != "root"
+  when: alias_email != "root" and 'mail_server' not in group_names
   notify: update aliases
 
 - name: Update Postfix configuration.
@@ -27,10 +29,12 @@
       value: "{{ postfix_inet_protocols }}"
     - name: myhostname
       value: "{{ inventory_hostname }}"
+  when: "'mail_server' not in group_names"
   notify: restart postfix
 
 - name: Ensure postfix is started and enabled at boot.
   service:
     name: postfix
     enabled: "{{ postfix_service_enabled }}"
+  when: "'mail_server' not in group_names"
   notify: restart postfix
