@@ -1,0 +1,23 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: nemo
+  description: Mail server for RedHat/CentOS or Debian/Ubuntu.
+  company: "Wirebrass"
+  license: "license (BSD, MIT)"
+  min_ansible_version: 1.8
+  platforms:
+    - name: EL
+      versions:
+      - all
+    - name: Debian
+      versions:
+      - all
+    - name: Ubuntu
+      versions:
+      - all
+  galaxy_tags:
+    - networking
+    - system
+    - mail

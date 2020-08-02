@@ -1,0 +1,17 @@
+---
+- name: DKIM key deployed.
+  copy:
+    dest: "/etc/dkimkeys/{{ dkim_mail_domain }}.mail.key"
+    content: "{{ dkim_mail_key }}\n"
+    owner: _rspamd
+    group: root
+    mode: 0400
+
+- name: DKIM txt file with DNS record deployed.
+  copy:
+    dest: "/etc/dkimkeys/{{ dkim_mail_domain }}.mail.txt"
+    content: "{{ dkim_mail_txt }}\n"
+    owner: root
+    group: root
+    mode: 0600
+

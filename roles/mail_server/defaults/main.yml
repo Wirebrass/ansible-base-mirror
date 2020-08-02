@@ -1,0 +1,15 @@
+---
+postfix_config_file: /etc/postfix/main.cf
+aliases_config_file: /etc/aliases
+
+postfix_service_state: started
+postfix_service_enabled: yes
+
+postfix_inet_interfaces: localhost
+postfix_inet_protocols: all
+
+alias_email: "{{ system_admin_email }}"
+
+dkim_mail_key: ""
+dkim_mail_txt: ""
+dkim_mail_domain: ""

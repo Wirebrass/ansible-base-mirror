@@ -1,0 +1,9 @@
+---
+- name: Update mail aliases.
+  lineinfile:
+    dest: "{{ aliases_config_file }}"
+    line: "root: {{ alias_email }}"
+    regexp: "^root:"
+  when: alias_email != "root"
+  notify: update aliases
+
