@@ -1,7 +1,5 @@
 # Ansible Role: Postfix
 
-[![Build Status](https://travis-ci.org/geerlingguy/ansible-role-postfix.svg?branch=master)](https://travis-ci.org/geerlingguy/ansible-role-postfix)
-
 Installs postfix on RedHat/CentOS, Gentoo or Debian/Ubuntu.
 
 ## Requirements

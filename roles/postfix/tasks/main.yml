@@ -17,6 +17,16 @@
   when: alias_email != "root" and 'mail_server' not in group_names
   notify: update aliases
 
+- name: Update mailname file.
+  copy:
+    dest: "/etc/mailname"
+    content: "{{ inventory_hostname }}\n"
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_distribution == 'Debian' and 'mail_server' not in group_names
+  notify: update aliases
+
 - name: Update Postfix configuration.
   lineinfile:
     dest: "{{ postfix_config_file }}"
