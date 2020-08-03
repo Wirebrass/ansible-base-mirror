@@ -1,0 +1,4 @@
+---
+- hosts: authority_dns_server
+  roles:
+    - vavrusa.knot
