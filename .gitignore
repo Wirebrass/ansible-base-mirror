@@ -1,5 +1,4 @@
 roles/geerlingguy.*
-roles/criecm.*
 roles/vavrusa.*
 .vault-password
 *.retry

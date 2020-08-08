@@ -1,0 +1,67 @@
+---
+
+openldap_schemas:
+  - core
+  - cosine
+  - nis
+  - inetorgperson
+  - rfc2739
+openldap_bases:
+  rootdn: cn=admin
+  suffix: dc=example,dc=org
+  includes: [ slapd.access ]
+  indexes:
+    - [ "uid,uidNumber,gidNumber,memberUID", "pres,eq" ]
+#  slave:
+#    rid: 
+#    provider: ldaps://:636
+#    binddn: cn=bind,dc=dn
+#    credentials: bindpw
+#    bindmethod: simple
+
+ldap_host: "localhost"
+ldap_port: "389"
+
+ldap_root_dn: "dc=example,dc=org"
+ldap_domain: "example.org"
+
+ldap_admin_user_dn: "cn=admin,dc=example,dc=org"
+ldap_admin_user_password: "{{ vault_ldap_admin_user_password }}"
+
+ldap_config_admin_user_dn: "cn=admin,cn=config"
+ldap_config_admin_user_password: "{{ vault_ldap_config_admin_user_password }}"
+
+ldap_people:
+  - userA:
+    uid: userA
+    cn: userA
+    uidNumber: 60012
+    gidNumber: 60012
+  - userB:
+    uid: userB
+    cn: userB
+    uidNumber: 60013
+    gidNumber: 60013
+
+ldap_groups:
+  - marketing:
+    cn: marketing
+    gidNumber: 60002
+    description: "Service MARKETING"
+    memberUid:
+      - userB
+      - userA
+  - it:
+    cn: it
+    gidNumber: 60003
+    description: "Service Informatique"
+
+
+ldap_accounts:
+  - svc-ssh:
+    cn: svc-ssh
+    description: "SSH read user"
+    userPassword: "test"
+
+ldap_applications:
+  - sudoers

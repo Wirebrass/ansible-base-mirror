@@ -1,4 +1,4 @@
 ---
 - hosts: ldap_server
   roles:
-    - criecm.openldap
+    - ldap_server
