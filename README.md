@@ -52,6 +52,9 @@ all:
         munin_server:
           hosts:
             myFirstGentooHost.example.org:
+        ldap_server:
+          hosts:
+            myFirstGentooHost.example.org:
 	    ...
 	...
     os:
@@ -152,6 +155,7 @@ Playbook deployment:
 * `playbook_general_deploy.yml`
 * `playbook_backup_deploy.yml`
 * `playbook_munin_deploy.yml`
+* `playbook_ldap_deploy.yml`
 
 ### playbook_general_deploy.yml
 
@@ -164,4 +168,8 @@ This playbook deploys a backup server with a dedicated user to save GIT reposito
 ### playbook_munin_deploy.yml
 
 This playbook deploys a Munin server and Munin "clients" using async to get information from "clients". He integrates HTTPS configuration and configuration generation with Ansible vars.
+
+### playbook_ldap_deploy.yml
+
+This playbook deploys and configures an OpenLDAP server.
 
