@@ -1,0 +1,64 @@
+---
+
+- name: anonymous access disabled (cn=config)
+  ldap_attr:
+    dn: "cn=config"
+    name: olcDisallows
+    values: bind_anon
+    state: exact
+    server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
+    bind_dn: "{{ ldap_config_admin_user_dn }}"
+    bind_pw: "{{ ldap_config_admin_user_password }}"
+
+- name: authentication required (cn=config)
+  ldap_attr:
+    dn: "cn=config"
+    name: olcRequires
+    values: authc
+    state: exact
+    server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
+    bind_dn: "{{ ldap_config_admin_user_dn }}"
+    bind_pw: "{{ ldap_config_admin_user_password }}"
+
+- name: authentication required (olcDatabase={-1}frontend,cn=config)
+  ldap_attr:
+    dn: "olcDatabase={-1}frontend,cn=config"
+    name: olcRequires
+    values: authc
+    state: exact
+    server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
+    bind_dn: "{{ ldap_config_admin_user_dn }}"
+    bind_pw: "{{ ldap_config_admin_user_password }}"
+
+- name: authentication required (olcDatabase={0}config,cn=config)
+  ldap_attr:
+    dn: "olcDatabase={0}config,cn=config"
+    name: olcRequires
+    values: authc
+    state: exact
+    server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
+    bind_dn: "{{ ldap_config_admin_user_dn }}"
+    bind_pw: "{{ ldap_config_admin_user_password }}"
+
+- name: authentication required (olcDatabase={1}mdb,cn=config)
+  ldap_attr:
+    dn: "olcDatabase={1}mdb,cn=config"
+    name: olcRequires
+    values: authc
+    state: exact
+    server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
+    bind_dn: "{{ ldap_config_admin_user_dn }}"
+    bind_pw: "{{ ldap_config_admin_user_password }}"
+
+- name: aci defined (olcDatabase={1}mdb,cn=config)
+  ldap_attr:
+    dn: "olcDatabase={1}mdb,cn=config"
+    name: olcAccess
+    values:
+      - "{0}to attrs=userPassword by self write by anonymous auth by * none"
+      - "{1}to attrs=shadowLastChange by self write by * read"
+    state: exact
+    server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
+    bind_dn: "{{ ldap_config_admin_user_dn }}"
+    bind_pw: "{{ ldap_config_admin_user_password }}"
+

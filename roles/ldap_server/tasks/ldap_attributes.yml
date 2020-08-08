@@ -1,0 +1,120 @@
+---
+
+- name: people cn configured
+  ldap_attr:
+    dn: "uid={{ item.uid }},ou=people,{{ ldap_root_dn }}"
+    name: cn
+    values: "{{ item.cn }}"
+    state: exact
+    server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
+    bind_dn: "{{ ldap_admin_user_dn }}"
+    bind_pw: "{{ ldap_admin_user_password }}"
+  loop: "{{ ldap_people }}"
+  when: ldap_people | length > 0
+
+- name: people loginShell configured
+  ldap_attr:
+    dn: "uid={{ item.uid }},ou=people,{{ ldap_root_dn }}"
+    name: loginShell
+    values: "/bin/bash"
+    state: exact
+    server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
+    bind_dn: "{{ ldap_admin_user_dn }}"
+    bind_pw: "{{ ldap_admin_user_password }}"
+  loop: "{{ ldap_people }}"
+  when: ldap_people | length > 0
+
+- name: people homeDirectory configured
+  ldap_attr:
+    dn: "uid={{ item.uid }},ou=people,{{ ldap_root_dn }}"
+    name: homeDirectory
+    values: "/home/{{ item.uid }}"
+    state: exact
+    server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
+    bind_dn: "{{ ldap_admin_user_dn }}"
+    bind_pw: "{{ ldap_admin_user_password }}"
+  loop: "{{ ldap_people }}"
+  when: ldap_people | length > 0
+
+- name: people uidNumber configured
+  ldap_attr:
+    dn: "uid={{ item.uid }},ou=people,{{ ldap_root_dn }}"
+    name: uidNumber
+    values: "{{ item.uidNumber }}"
+    state: exact
+    server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
+    bind_dn: "{{ ldap_admin_user_dn }}"
+    bind_pw: "{{ ldap_admin_user_password }}"
+  loop: "{{ ldap_people }}"
+  when: ldap_people | length > 0
+
+- name: people gidNumber configured
+  ldap_attr:
+    dn: "uid={{ item.uid }},ou=people,{{ ldap_root_dn }}"
+    name: gidNumber
+    values: "{{ item.gidNumber }}"
+    state: exact
+    server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
+    bind_dn: "{{ ldap_admin_user_dn }}"
+    bind_pw: "{{ ldap_admin_user_password }}"
+  loop: "{{ ldap_people }}"
+  when: ldap_people | length > 0
+
+- name: groups gidNumber configured
+  ldap_attr:
+    dn: "cn={{ item.cn }},ou=groups,{{ ldap_root_dn }}"
+    name: gidNumber
+    values: "{{ item.gidNumber }}"
+    state: exact
+    server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
+    bind_dn: "{{ ldap_admin_user_dn }}"
+    bind_pw: "{{ ldap_admin_user_password }}"
+  loop: "{{ ldap_groups }}"
+  when: ldap_groups | length > 0
+
+- name: groups description configured
+  ldap_attr:
+    dn: "cn={{ item.cn }},ou=groups,{{ ldap_root_dn }}"
+    name: description
+    values: "{{ item.description }}"
+    state: exact
+    server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
+    bind_dn: "{{ ldap_admin_user_dn }}"
+    bind_pw: "{{ ldap_admin_user_password }}"
+  loop: "{{ ldap_groups }}"
+  when: ldap_groups | length > 0
+
+- name: groups memberUid configured
+  ldap_attr:
+    dn: "cn={{ item.cn }},ou=groups,{{ ldap_root_dn }}"
+    name: memberUid
+    values: "{{ item.memberUid }}"
+    state: exact
+    server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
+    bind_dn: "{{ ldap_admin_user_dn }}"
+    bind_pw: "{{ ldap_admin_user_password }}"
+  loop: "{{ ldap_groups }}"
+  when: ldap_groups | length > 0 and item.memberUid is defined and item.memberUid | length > 0
+
+- name: accounts description configured
+  ldap_attr:
+    dn: "cn={{ item.cn }},ou=accounts,{{ ldap_root_dn }}"
+    name: description
+    values: "{{ item.description }}"
+    state: exact
+    server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
+    bind_dn: "{{ ldap_admin_user_dn }}"
+    bind_pw: "{{ ldap_admin_user_password }}"
+  loop: "{{ ldap_accounts }}"
+  when: ldap_accounts | length > 0
+
+- name: accounts userPassword configured
+  ldap_passwd:
+    dn: "cn={{ item.cn }},ou=accounts,{{ ldap_root_dn }}"
+    passwd: "{{ item.userPassword }}"
+    server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
+    bind_dn: "{{ ldap_admin_user_dn }}"
+    bind_pw: "{{ ldap_admin_user_password }}"
+  loop: "{{ ldap_accounts }}"
+  when: ldap_accounts | length > 0
+

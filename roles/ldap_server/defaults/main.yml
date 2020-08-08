@@ -1,0 +1,72 @@
+# defaults are debian-compatible
+---
+openldap_confdir: /etc/ldap
+openldap_user: openldap
+openldap_group: openldap
+openldap_datadir: /var/lib/ldap
+openldap_db_engine: mdb
+openldap_db_maxsize: 1073741824
+openldap_modsdir: /usr/lib/ldap
+slapd_package: slapd
+slapd_service_name: slapd
+slapd_exec: /usr/sbin/slapd
+slapd_pidfile: /var/run/slapd/slapd.pid
+slapd_argsfile: /var/run/slapd/slapd.args
+
+#openldap_slave_rid: 0
+openldap_schmas:
+  - core
+  - cosine
+  - inetorgperson
+  - nis
+
+openldap_tls_cert:
+openldap_tls_key:
+openldap_tls_cacert:
+
+ldap_host: "localhost"
+ldap_port: "389"
+
+ldap_root_dn: "dc=example,dc=org"
+ldap_domain: "example.org"
+
+ldap_admin_user_dn: "cn=admin,dc=example,dc=org"
+ldap_admin_user_password: ""
+
+ldap_config_admin_user_dn: "cn=admin,cn=config"
+ldap_config_admin_user_password: ""
+
+ldap_people:
+  - userA:
+    uid: userA
+    cn: userA
+    uidNumber: 60012
+    gidNumber: 60012
+  - userB:
+    uid: userB
+    cn: userB
+    uidNumber: 60013
+    gidNumber: 60013
+
+ldap_groups:
+  - marketing:
+    cn: marketing
+    gidNumber: 60002
+    description: "Service MARKETING"
+    memberUid:
+      - userB
+      - userA
+  - it:
+    cn: it
+    gidNumber: 60003
+    description: "Service Informatique"
+
+
+ldap_accounts:
+  - svc-ssh:
+    cn: svc-ssh
+    description: "SSH read user"
+    userPassword: "test"
+
+ldap_applications:
+  - sudoers

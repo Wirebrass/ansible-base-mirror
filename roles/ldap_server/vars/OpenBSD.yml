@@ -1,0 +1,13 @@
+---
+openldap_confdir: /etc/openldap
+openldap_user: _openldap
+openldap_group: _openldap
+openldap_datadir: /var/openldap-data
+openldap_db_engine: hdb
+openldap_db_maxsize: 1073741824
+openldap_modsdir:
+slapd_package: openldap-server--
+slapd_service_name: slapd
+slapd_exec: /usr/local/libexec/slapd
+slapd_pidfile: /var/run/openldap/slapd.pid
+slapd_argsfile: /var/run/openldap/slapd.args

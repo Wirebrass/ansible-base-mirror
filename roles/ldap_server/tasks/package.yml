@@ -1,0 +1,6 @@
+---
+- name: install OpenLDAP
+  package:
+    name: "{{ slapd_package }}"
+    state: present
+

@@ -1,0 +1,101 @@
+---
+
+- name: root DN created
+  ldap_entry:
+    dn: "{{ ldap_root_dn }}"
+    objectClass:
+      - dcObject
+      - organization
+    attributes:
+      o: "{{ ldap_domain }}"
+    server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
+    bind_dn: "{{ ldap_admin_user_dn }}"
+    bind_pw: "{{ ldap_admin_user_password }}"
+
+- name: people OU created
+  ldap_entry:
+    dn: "ou=people,{{ ldap_root_dn }}"
+    objectClass:
+      - organizationalUnit
+    server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
+    bind_dn: "{{ ldap_admin_user_dn }}"
+    bind_pw: "{{ ldap_admin_user_password }}"
+
+- name: groups OU created
+  ldap_entry:
+    dn: "ou=groups,{{ ldap_root_dn }}"
+    objectClass:
+      - organizationalUnit
+    server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
+    bind_dn: "{{ ldap_admin_user_dn }}"
+    bind_pw: "{{ ldap_admin_user_password }}"
+
+- name: accounts OU created
+  ldap_entry:
+    dn: "ou=accounts,{{ ldap_root_dn }}"
+    objectClass:
+      - organizationalUnit
+    server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
+    bind_dn: "{{ ldap_admin_user_dn }}"
+    bind_pw: "{{ ldap_admin_user_password }}"
+
+- name: applications OU created
+  ldap_entry:
+    dn: "ou=applications,{{ ldap_root_dn }}"
+    objectClass:
+      - organizationalUnit
+    server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
+    bind_dn: "{{ ldap_admin_user_dn }}"
+    bind_pw: "{{ ldap_admin_user_password }}"
+
+- name: people created
+  ldap_entry:
+    dn: "uid={{ item.uid }},ou=people,{{ ldap_root_dn }}"
+    objectClass:
+      - account
+      - posixAccount
+      - shadowAccount
+    attributes:
+      uid: "{{ item.uid }}"
+      cn: "{{ item.cn }}"
+      loginShell: "/bin/bash"
+      homeDirectory: "/home/{{ item.uid }}"
+      uidNumber: "{{ item.uidNumber }}"
+      gidNumber: "{{ item.gidNumber }}"
+    server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
+    bind_dn: "{{ ldap_admin_user_dn }}"
+    bind_pw: "{{ ldap_admin_user_password }}"
+  loop: "{{ ldap_people }}"
+  when: ldap_people | length > 0
+
+- name: groups created
+  ldap_entry:
+    dn: "cn={{ item.cn }},ou=groups,{{ ldap_root_dn }}"
+    objectClass:
+      - posixGroup
+    attributes:
+      cn: "{{ item.cn }}"
+      description: "{{ item.description }}"
+      gidNumber: "{{ item.gidNumber }}"
+    server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
+    bind_dn: "{{ ldap_admin_user_dn }}"
+    bind_pw: "{{ ldap_admin_user_password }}"
+  loop: "{{ ldap_groups }}"
+  when: ldap_groups | length > 0
+
+- name: accounts created
+  ldap_entry:
+    dn: "cn={{ item.cn }},ou=accounts,{{ ldap_root_dn }}"
+    objectClass:
+      - simpleSecurityObject
+      - organizationalRole
+    attributes:
+      cn: "{{ item.cn }}"
+      description: "{{ item.description }}"
+      userPassword: "{{ item.userPassword }}"
+    server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
+    bind_dn: "{{ ldap_admin_user_dn }}"
+    bind_pw: "{{ ldap_admin_user_password }}"
+  loop: "{{ ldap_accounts }}"
+  when: ldap_accounts | length > 0
+
