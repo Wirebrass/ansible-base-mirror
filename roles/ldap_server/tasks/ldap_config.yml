@@ -6,6 +6,7 @@
     name: olcDisallows
     values: bind_anon
     state: exact
+    start_tls: yes
     server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
     bind_dn: "{{ ldap_config_admin_user_dn }}"
     bind_pw: "{{ ldap_config_admin_user_password }}"
@@ -16,6 +17,7 @@
     name: olcRequires
     values: authc
     state: exact
+    start_tls: yes
     server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
     bind_dn: "{{ ldap_config_admin_user_dn }}"
     bind_pw: "{{ ldap_config_admin_user_password }}"
@@ -26,6 +28,7 @@
     name: olcRequires
     values: authc
     state: exact
+    start_tls: yes
     server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
     bind_dn: "{{ ldap_config_admin_user_dn }}"
     bind_pw: "{{ ldap_config_admin_user_password }}"
@@ -36,6 +39,7 @@
     name: olcRequires
     values: authc
     state: exact
+    start_tls: yes
     server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
     bind_dn: "{{ ldap_config_admin_user_dn }}"
     bind_pw: "{{ ldap_config_admin_user_password }}"
@@ -46,6 +50,7 @@
     name: olcRequires
     values: authc
     state: exact
+    start_tls: yes
     server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
     bind_dn: "{{ ldap_config_admin_user_dn }}"
     bind_pw: "{{ ldap_config_admin_user_password }}"
@@ -58,6 +63,7 @@
       - "{0}to attrs=userPassword by self write by anonymous auth by * none"
       - "{1}to attrs=shadowLastChange by self write by * read"
     state: exact
+    start_tls: yes
     server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
     bind_dn: "{{ ldap_config_admin_user_dn }}"
     bind_pw: "{{ ldap_config_admin_user_password }}"

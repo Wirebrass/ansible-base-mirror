@@ -1,0 +1,124 @@
+---
+
+- name: olcTLSCACertificateFile configured (cn=config)
+  ldap_attr:
+    dn: "cn=config"
+    name: olcTLSCACertificateFile
+    values: "{{ openldap_confdir }}/sasl2/fullchain.pem"
+    state: exact
+    start_tls: yes
+    server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
+    bind_dn: "{{ ldap_config_admin_user_dn }}"
+    bind_pw: "{{ ldap_config_admin_user_password }}"
+  notify: "restart slapd"
+
+- name: olcTLSCACertificateFile configured (cn=config)
+  ldap_attr:
+    dn: "cn=config"
+    name: olcTLSCertificateKeyFile
+    values: "{{ openldap_confdir }}/sasl2/privkey.pem"
+    state: exact
+    start_tls: yes
+    server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
+    bind_dn: "{{ ldap_config_admin_user_dn }}"
+    bind_pw: "{{ ldap_config_admin_user_password }}"
+  notify: "restart slapd"
+
+- name: olcTLSCertificateFile configured (cn=config)
+  ldap_attr:
+    dn: "cn=config"
+    name: olcTLSCertificateFile
+    values: "{{ openldap_confdir }}/sasl2/cert.pem"
+    state: exact
+    start_tls: yes
+    server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
+    bind_dn: "{{ ldap_config_admin_user_dn }}"
+    bind_pw: "{{ ldap_config_admin_user_password }}"
+  notify: "restart slapd"
+
+- name: olcTLSProtocolMin configured (cn=config)
+  ldap_attr:
+    dn: "cn=config"
+    name: olcTLSProtocolMin
+    values: "3.3"
+    state: exact
+    start_tls: yes
+    server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
+    bind_dn: "{{ ldap_config_admin_user_dn }}"
+    bind_pw: "{{ ldap_config_admin_user_password }}"
+  notify: "restart slapd"
+
+- name: olcSecurity configured (cn=config)
+  ldap_attr:
+    dn: "cn=config"
+    name: olcSecurity
+    values: "tls=1"
+    state: exact
+    start_tls: yes
+    server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
+    bind_dn: "{{ ldap_config_admin_user_dn }}"
+    bind_pw: "{{ ldap_config_admin_user_password }}"
+  notify: "restart slapd"
+
+- name: TLS required (olcDatabase={-1}frontend,cn=config)
+  ldap_attr:
+    dn: "olcDatabase={-1}frontend,cn=config"
+    name: olcSecurity
+    values: "tls=1"
+    state: exact
+    start_tls: yes
+    server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
+    bind_dn: "{{ ldap_config_admin_user_dn }}"
+    bind_pw: "{{ ldap_config_admin_user_password }}"
+  notify: "restart slapd"
+
+- name: TLS required (olcDatabase={0}config,cn=config)
+  ldap_attr:
+    dn: "olcDatabase={0}config,cn=config"
+    name: olcSecurity
+    values: "tls=1"
+    state: exact
+    start_tls: yes
+    server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
+    bind_dn: "{{ ldap_config_admin_user_dn }}"
+    bind_pw: "{{ ldap_config_admin_user_password }}"
+  notify: "restart slapd"
+
+- name: TLS required (olcDatabase={1}mdb,cn=config)
+  ldap_attr:
+    dn: "olcDatabase={1}mdb,cn=config"
+    name: olcSecurity
+    values: "tls=1"
+    state: exact
+    start_tls: yes
+    server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
+    bind_dn: "{{ ldap_config_admin_user_dn }}"
+    bind_pw: "{{ ldap_config_admin_user_password }}"
+  notify: "restart slapd"
+
+#- name: olcTLSCipherSuite configured (cn=config)
+#  ldap_attr:
+#    dn: "cn=config"
+#    name: olcTLSCipherSuite
+#    #values: "ECDHE-RSA-AES256-SHA384:AES256-SHA256:!RC4:HIGH:!MD5:!aNULL:!EDH:!EXP:!SSLV2:!eNULL"
+#    values: "ALL:!NULL"
+#  #  values: ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256
+#    state: exact
+#    start_tls: yes
+#    bind_dn: "{{ ldap_config_admin_user_dn }}"
+#    bind_pw: "{{ ldap_config_admin_user_password }}"
+#  notify: "restart slapd"
+#
+#- name: olcTLSDHParamFile configured (cn=config)
+#  ldap_attr:
+#    dn: "cn=config"
+#    name: olcTLSDHParamFile
+#    values: "{{ openldap_confdir }}/sasl2/slapd.dh.params"
+#    state: exact
+#    start_tls: yes
+#    bind_dn: "{{ ldap_config_admin_user_dn }}"
+#    bind_pw: "{{ ldap_config_admin_user_password }}"
+#  notify: "restart slapd"
+
+- name: Force all notified handlers to run at this point, not waiting for normal sync points
+  meta: flush_handlers

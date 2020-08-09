@@ -1,0 +1,29 @@
+---
+
+- name: check if key and cert already present in ldap configuration folder
+  stat:
+    path: "{{ openldap_confdir }}/sasl2/privkey.pem"
+  register: privkey_exist
+
+- name: if key and cert not already present, copy them
+  shell: "cp -pf /etc/letsencrypt/live/l01.wirebrass.fr/*.pem {{ openldap_confdir }}/sasl2/"
+  when: not privkey_exist.stat.exists
+
+- name: if key and cert not already present, fix permissions
+  shell: "chown openldap: {{ openldap_confdir }}/sasl2/*.pem"
+  when: not privkey_exist.stat.exists
+
+- name: link to ca-certificates created
+  file:
+    src: /etc/ssl/certs/ca-certificates.crt
+    dest: "{{ openldap_confdir }}/sasl2/ca-certificates.crt"
+    state: link
+
+- name: OpenLDAP DH Parameters generated
+  openssl_dhparam:
+    path: "{{ openldap_confdir }}/sasl2/slapd.dh.params"
+    size: 2048
+    owner: openldap
+    group: openldap
+    mode: 0600
+

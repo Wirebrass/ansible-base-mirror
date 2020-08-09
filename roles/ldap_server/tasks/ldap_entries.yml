@@ -8,6 +8,7 @@
       - organization
     attributes:
       o: "{{ ldap_domain }}"
+    start_tls: yes
     server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
     bind_dn: "{{ ldap_admin_user_dn }}"
     bind_pw: "{{ ldap_admin_user_password }}"
@@ -17,6 +18,7 @@
     dn: "ou=people,{{ ldap_root_dn }}"
     objectClass:
       - organizationalUnit
+    start_tls: yes
     server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
     bind_dn: "{{ ldap_admin_user_dn }}"
     bind_pw: "{{ ldap_admin_user_password }}"
@@ -26,6 +28,7 @@
     dn: "ou=groups,{{ ldap_root_dn }}"
     objectClass:
       - organizationalUnit
+    start_tls: yes
     server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
     bind_dn: "{{ ldap_admin_user_dn }}"
     bind_pw: "{{ ldap_admin_user_password }}"
@@ -35,6 +38,7 @@
     dn: "ou=accounts,{{ ldap_root_dn }}"
     objectClass:
       - organizationalUnit
+    start_tls: yes
     server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
     bind_dn: "{{ ldap_admin_user_dn }}"
     bind_pw: "{{ ldap_admin_user_password }}"
@@ -44,6 +48,7 @@
     dn: "ou=applications,{{ ldap_root_dn }}"
     objectClass:
       - organizationalUnit
+    start_tls: yes
     server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
     bind_dn: "{{ ldap_admin_user_dn }}"
     bind_pw: "{{ ldap_admin_user_password }}"
@@ -62,6 +67,7 @@
       homeDirectory: "/home/{{ item.uid }}"
       uidNumber: "{{ item.uidNumber }}"
       gidNumber: "{{ item.gidNumber }}"
+    start_tls: yes
     server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
     bind_dn: "{{ ldap_admin_user_dn }}"
     bind_pw: "{{ ldap_admin_user_password }}"
@@ -77,6 +83,7 @@
       cn: "{{ item.cn }}"
       description: "{{ item.description }}"
       gidNumber: "{{ item.gidNumber }}"
+    start_tls: yes
     server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
     bind_dn: "{{ ldap_admin_user_dn }}"
     bind_pw: "{{ ldap_admin_user_password }}"
@@ -93,6 +100,7 @@
       cn: "{{ item.cn }}"
       description: "{{ item.description }}"
       userPassword: "{{ item.userPassword }}"
+    start_tls: yes
     server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
     bind_dn: "{{ ldap_admin_user_dn }}"
     bind_pw: "{{ ldap_admin_user_password }}"

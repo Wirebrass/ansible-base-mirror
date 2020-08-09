@@ -1,5 +1,19 @@
 ---
 
+# Role ansible-role-certbot : defina auto renew, schedule, ...
+# WARNING: you need to open the port 80 (iptables)
+certbot_auto_renew: true
+certbot_auto_renew_user: "root"
+certbot_auto_renew_hour: "5"
+certbot_auto_renew_minute: "0"
+certbot_auto_renew_options: "--quiet --no-self-upgrade --deploy-hook 'cp -pf /etc/letsencrypt/live/{{ inventory_hostname }}/*.pem /etc/ldap/sasl2/ && chown openldap: /etc/ldap/sasl2/*.pem && systemctl restart slapd'"
+certbot_create_if_missing: true
+certbot_create_method: standalone
+certbot_create_standalone_stop_services: []
+certbot_certs:
+  - domains:
+    - "{{ inventory_hostname }}"
+
 openldap_schemas:
   - core
   - cosine

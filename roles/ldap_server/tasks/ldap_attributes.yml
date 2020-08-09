@@ -6,6 +6,7 @@
     name: cn
     values: "{{ item.cn }}"
     state: exact
+    start_tls: yes
     server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
     bind_dn: "{{ ldap_admin_user_dn }}"
     bind_pw: "{{ ldap_admin_user_password }}"
@@ -18,6 +19,7 @@
     name: loginShell
     values: "/bin/bash"
     state: exact
+    start_tls: yes
     server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
     bind_dn: "{{ ldap_admin_user_dn }}"
     bind_pw: "{{ ldap_admin_user_password }}"
@@ -30,6 +32,7 @@
     name: homeDirectory
     values: "/home/{{ item.uid }}"
     state: exact
+    start_tls: yes
     server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
     bind_dn: "{{ ldap_admin_user_dn }}"
     bind_pw: "{{ ldap_admin_user_password }}"
@@ -42,6 +45,7 @@
     name: uidNumber
     values: "{{ item.uidNumber }}"
     state: exact
+    start_tls: yes
     server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
     bind_dn: "{{ ldap_admin_user_dn }}"
     bind_pw: "{{ ldap_admin_user_password }}"
@@ -54,6 +58,7 @@
     name: gidNumber
     values: "{{ item.gidNumber }}"
     state: exact
+    start_tls: yes
     server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
     bind_dn: "{{ ldap_admin_user_dn }}"
     bind_pw: "{{ ldap_admin_user_password }}"
@@ -66,6 +71,7 @@
     name: gidNumber
     values: "{{ item.gidNumber }}"
     state: exact
+    start_tls: yes
     server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
     bind_dn: "{{ ldap_admin_user_dn }}"
     bind_pw: "{{ ldap_admin_user_password }}"
@@ -78,6 +84,7 @@
     name: description
     values: "{{ item.description }}"
     state: exact
+    start_tls: yes
     server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
     bind_dn: "{{ ldap_admin_user_dn }}"
     bind_pw: "{{ ldap_admin_user_password }}"
@@ -90,6 +97,7 @@
     name: memberUid
     values: "{{ item.memberUid }}"
     state: exact
+    start_tls: yes
     server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
     bind_dn: "{{ ldap_admin_user_dn }}"
     bind_pw: "{{ ldap_admin_user_password }}"
@@ -102,6 +110,7 @@
     name: description
     values: "{{ item.description }}"
     state: exact
+    start_tls: yes
     server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
     bind_dn: "{{ ldap_admin_user_dn }}"
     bind_pw: "{{ ldap_admin_user_password }}"
@@ -112,6 +121,7 @@
   ldap_passwd:
     dn: "cn={{ item.cn }},ou=accounts,{{ ldap_root_dn }}"
     passwd: "{{ item.userPassword }}"
+    start_tls: yes
     server_uri: "ldap://{{ ldap_host }}:{{ ldap_port }}/"
     bind_dn: "{{ ldap_admin_user_dn }}"
     bind_pw: "{{ ldap_admin_user_password }}"

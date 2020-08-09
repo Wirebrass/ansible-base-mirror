@@ -5,6 +5,8 @@
 
 - include_tasks: package.yml
 - include_tasks: service.yml
+- include_tasks: cert.yml
+- include_tasks: ldap_tls.yml
 - include_tasks: ldap_entries.yml
 - include_tasks: ldap_attributes.yml
 - include_tasks: ldap_config.yml
