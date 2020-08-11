@@ -1,4 +1,0 @@
----
-- hosts: mail_server
-  roles:
-    - mail_server
