@@ -1,0 +1,31 @@
+---
+
+knot_interfaces:
+  - '0.0.0.0@53'
+  - '::@53'
+
+knot_keys:
+  - { id: 'slavekey01', algorithm: 'hmac-md5', secret: 'YourRandomKey==' }
+
+knot_extras: |
+  remote:
+    - id: slave01
+      address: 1.2.3.4
+      key: slavekey01
+  
+  acl:
+    - id: acl_slave
+      address: [1.2.3.4]
+      action: transfer
+      key: slavekey01
+  
+  template:
+    - id: default
+      storage: "/var/lib/knot"
+      file: "%s.zone"
+      acl: acl_slave
+      notify: [slave01]
+
+knot_zones:
+  - { name: 'mydomain.org', file: 'mydomain.org.zone', notify: '[slave01]', acl: 'acl_slave' }
+
