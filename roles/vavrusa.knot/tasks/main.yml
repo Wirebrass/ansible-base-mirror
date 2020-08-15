@@ -1,10 +1,6 @@
 ---
-- name: install from source
-  include: from_source.yml
-  when: knot_from_source
 - name: install from packages
   include: from_pkgs.yml
-  when: not knot_from_source
 
 # Post-install
 - name: set config path (FreeBSD)

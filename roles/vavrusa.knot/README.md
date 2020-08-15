@@ -11,14 +11,6 @@ None.
 Role Variables
 --------------
 
-Available variables are listed below, along with default values (see `defaults/main.yml`):
-
-	knot_from_source: false # Default
-
-Set either of this to `true` or `false` to choose installation from sources or distribution packages.
-
-	knot_git_branch: master
-
 If building from sources, pick a git branch or tag.
 
 	knot_install_dir: /usr/local
