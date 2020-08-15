@@ -9,6 +9,9 @@ all:
         backup_server:
           hosts:
             myFirstDebianHost.example.org:
+        authority_dns_server:
+          hosts:
+            mySecondCentOSHost.anotherexample.org:
         munin_server:
           hosts:
             myFirstGentooHost.example.org:
