@@ -1,0 +1,52 @@
+# {{ ansible_managed }}
+
+# Server options
+server:
+  rundir: {{ knot_install_dir }}/var/run/knot
+  user: "{{ knot_user }}:{{ knot_group }}"
+{% for addr in knot_interfaces %}
+  listen: {{ addr }}
+{% endfor %}
+
+log:
+  - target: syslog
+    any: info
+
+# Key lists
+key:
+{% for key in knot_keys %}
+  - id: {{ key.id }}
+{% if 'algorithm' in key %}
+    algorithm: {{ key.algorithm }}
+{% endif %}
+{% if 'secret' in key %}
+    secret: {{ key.secret }}
+{% endif %}
+{% endfor %}
+
+# Server-specific extras
+{{ knot_extras }}
+
+# Zone lists
+zone:
+{% for zone in knot_zones %}
+  - domain: {{ zone.name }}
+{% if 'template' in zone %}
+    template: {{ zone.template }}
+{% endif %}
+{% if 'module' in zone %}
+    module: {{ zone.module }}
+{% endif %}
+{% if 'file' in zone %}
+    file: "{{ zone.file }}"
+{% endif %}
+{% if 'notify' in zone %}
+    notify: {{ zone.notify }}
+{% endif %}
+{% if 'acl' in zone %}
+    acl: {{ zone.acl }}
+{% endif %}
+    dnssec-signing: on
+    dnssec-policy: default
+{% endfor %}
+

@@ -1,0 +1,22 @@
+---
+## Installation options
+knot_from_source: false
+knot_git_branch: master
+knot_install_dir: ""
+knot_user: knot
+knot_group: knot
+knot_daemon: knot
+## Configuration options
+knot_interfaces:
+  - 127.0.0.1@5300
+  - ::1@5300
+  - "{{ ansible_default_ipv4.address }}"
+  - "{{ ansible_default_ipv6.address }}"
+knot_keys:
+  - { id: 'slave1_key', algorithm: 'hmac-md5', secret: 'Wg==' }
+knot_zones:
+  - { name: 'example.com', template: 'default' }
+knot_extras: |
+  server:
+    rate-limit: 10
+
