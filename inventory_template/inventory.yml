@@ -12,6 +12,9 @@ all:
         authority_dns_server:
           hosts:
             mySecondCentOSHost.anotherexample.org:
+        resolver_dns_server:
+          hosts:
+            myFirstCentOSHost.example.org:
         munin_server:
           hosts:
             myFirstGentooHost.example.org:

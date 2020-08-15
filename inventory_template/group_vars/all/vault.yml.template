@@ -17,3 +17,5 @@ vault_public_key_backup_user_host: SSH_PUBKEY_OF_backup_user_USER_ON_BACKUP_HOST
 
 vault_ldap_admin_user_password: LDAP_ADMIN_PASSWORD
 vault_ldap_config_admin_user_password: LDAP_CONFIG_ADMIN_PASSWORD
+
+vault_rndc_key_secret: RNDC_KEY_SECRET
