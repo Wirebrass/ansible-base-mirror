@@ -1,4 +1,5 @@
 roles/geerlingguy.*
+roles/powerdns.*
 .vault-password
 *.retry
 inventory*
