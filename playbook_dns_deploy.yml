@@ -2,3 +2,7 @@
 - hosts: authority_dns_server
   roles:
     - vavrusa.knot
+
+- hosts: resolver_dns_server
+  roles:
+    - powerdns.pdns_recursor
