@@ -4,20 +4,17 @@ knot_interfaces:
   - '0.0.0.0@53'
   - '::@53'
 
-knot_keys:
-  - { id: 'rndc-key', algorithm: 'hmac-md5', secret: '{{ vault_rndc_key_secret }}' }
+knot_keys: []
 
 knot_extras: |
   remote:
     - id: slave01
       address: 1.2.3.4
-      key: rndc-key
   
   acl:
     - id: acl_slave
       address: [1.2.3.4]
       action: transfer
-      key: rndc-key
   
   template:
     - id: default
