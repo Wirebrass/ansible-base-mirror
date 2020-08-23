@@ -35,3 +35,6 @@ all:
           hosts:
             myFirstCentOSHost.example.org:
             mySecondCentOSHost.anotherexample.org:
+        os_openbsd:
+          hosts:
+            myFirstOpenBSDHost.example.org:

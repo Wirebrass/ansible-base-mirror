@@ -2,7 +2,7 @@
 # defaults file for sysctl_customization
 
 # Sysctl swapiness value
-sysctl_vm_swapiness: '10'
+sysctl_vm_swapiness: '1'
 
 # Sysctl config file
 sysctl_config_file: /etc/sysctl.d/56-ansible.conf
