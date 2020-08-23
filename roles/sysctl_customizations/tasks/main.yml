@@ -1,3 +1,4 @@
 ---
 # Main tasks file for sysctl_customizations
 - import_tasks: sysctl.yml
+  when: ansible_os_family != 'OpenBSD'
