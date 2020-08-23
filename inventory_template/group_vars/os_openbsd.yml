@@ -2,18 +2,14 @@
 cron_upgrade_job: emerge --sync --quiet && emerge --quiet-build -uvDN @world && /usr/sbin/perl-cleaner --all -q && emerge --quiet-build @preserved-rebuild && emerge --depclean && eselect news read
 
 # Tools to install on Gentoo hosts
-#tools_package:
-#  - bind-tools
+tools_package: []
 #  - vim
 #  - tcpdump
-#  - gentoolkit
 #  - tmux
 #  - htop
 #  - sudo
 #  - curl
-#  - sed
 #  - awk
-#  - grep
 #  - jq
 #  - mailutils
 
