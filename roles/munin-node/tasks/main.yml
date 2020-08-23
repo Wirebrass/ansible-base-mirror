@@ -28,12 +28,19 @@
   when: ansible_os_family == 'Gentoo'
   notify: restart munin-node
 
+- name: Ensure munin (node) is installed (OpenBSD).
+  openbsd_pkg:
+    name: munin-node
+    state: latest
+  when: ansible_os_family == 'OpenBSD'
+  notify: restart munin-node
+
 - name: Copy munin-node configuration.
   template:
     src: munin-node.conf.j2
     dest: /etc/munin/munin-node.conf
-    owner: root
-    group: root
+    owner: "{{ munin_node_user }}"
+    group: "{{ munin_node_group }}"
     mode: 0644
   notify: restart munin-node
 
@@ -41,8 +48,8 @@
   template:
     src: plugin-conf.j2
     dest: /etc/munin/plugin-conf.d/ansible.conf
-    owner: root
-    group: root
+    owner: "{{ munin_node_user }}"
+    group: "{{ munin_node_group }}"
     mode: 0644
   notify: restart munin-node
 
@@ -55,4 +62,4 @@
   notify: restart munin-node
 
 - name: Ensure munin-node is running.
-  service: name=munin-node state=started enabled=yes
+  service: name="{{ munin_node_service }}" state=started enabled=yes

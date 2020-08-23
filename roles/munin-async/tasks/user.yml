@@ -1,4 +1,10 @@
 ---
+- name: "Munin user for remote access created"
+  user:
+    name: "{{ munin_async_user }}"
+    password: "!"
+  when: ansible_os_family == 'OpenBSD'
+
 - name: Set up authorized key for Munin async user
   authorized_key:
     user: "{{ munin_async_user }}"
