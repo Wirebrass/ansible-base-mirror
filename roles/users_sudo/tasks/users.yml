@@ -3,7 +3,7 @@
   user:
     name: "{{ item }}"
     groups: "{{ sudo_group }}"
-    shell: /bin/bash
+    shell: "{{ sudo_shell }}"
     append: yes
     password: "{{ default_user_password }}"
     update_password: on_create

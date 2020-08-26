@@ -1,3 +1,4 @@
 ---
 sudo_package: sudo
 sudo_group: wheel
+sudo_shell: /bin/ksh
