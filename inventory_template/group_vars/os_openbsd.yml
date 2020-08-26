@@ -1,15 +1,11 @@
-# Command to run to execute a Gentoo update
-cron_upgrade_job: emerge --sync --quiet && emerge --quiet-build -uvDN @world && /usr/sbin/perl-cleaner --all -q && emerge --quiet-build @preserved-rebuild && emerge --depclean && eselect news read
+# Command to run to execute a OpenBSD update
+cron_upgrade_job: syspatch; pkg_add -Uu
 
-# Tools to install on Gentoo hosts
-tools_package: []
-#  - vim
-#  - tcpdump
-#  - tmux
-#  - htop
-#  - sudo
-#  - curl
-#  - awk
-#  - jq
-#  - mailutils
+# Tools to install on OpenBSD hosts
+#tools_package: []
+tools_package:
+  - vim
+  - curl
+  - jq
+  - git
 

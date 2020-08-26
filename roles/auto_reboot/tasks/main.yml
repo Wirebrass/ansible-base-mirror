@@ -6,4 +6,5 @@
   when: auto_reboot
 
 - import_tasks: package.yml
+  when: ansible_os_family != 'OpenBSD'
 - import_tasks: crontask.yml
