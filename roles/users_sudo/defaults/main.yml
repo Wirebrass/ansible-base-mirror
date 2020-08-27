@@ -15,3 +15,6 @@ sudo_users: []
 
 # SSH public key of users to allow SSH connection witk SSH priv/pub keys
 public_key: []
+
+# Default shell
+sudo_shell: /bin/bash
