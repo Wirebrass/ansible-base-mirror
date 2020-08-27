@@ -1,4 +1,4 @@
-#!/bin/bash
+#!{{ backup_client_shell }}
 {% for backup_serv in groups['backup_server'] %}
 
 # Check if {{ backup_serv }} is a known host
@@ -7,15 +7,15 @@ if [ ! $? -eq 0 ]; then
 	ssh-keygen -F {{ backup_serv }} || ssh-keyscan {{ backup_serv }} >>~/.ssh/known_hosts
 fi
 
-borg list backup-$(hostname -s)@{{ backup_serv }}:{{ hostvars[backup_serv]['backup_folder'] }}/$(hostname -s) &>/dev/null
+{{ backup_client_borgbackup_bin }} list backup-$(hostname -s)@{{ backup_serv }}:{{ hostvars[backup_serv]['backup_folder'] }}/$(hostname -s) &>/dev/null
 
 if [ $? -ne 0 ]
 then
     ssh backup-$(hostname -s)@{{ backup_serv }} mkdir -p {{ hostvars[backup_serv]['backup_folder'] }}/$(hostname -s) -m 0700
     export BORG_PASSPHRASE=""
-    borg init --encryption=repokey backup-$(hostname -s)@{{ backup_serv }}:{{ hostvars[backup_serv]['backup_folder'] }}/$(hostname -s)
+    {{ backup_client_borgbackup_bin }} init --encryption=repokey backup-$(hostname -s)@{{ backup_serv }}:{{ hostvars[backup_serv]['backup_folder'] }}/$(hostname -s)
 fi
 
-borg prune -v backup-$(hostname -s)@{{ backup_serv }}:{{ hostvars[backup_serv]['backup_folder'] }}/$(hostname -s) --keep-daily=7 --keep-weekly=4 --keep-monthly=1
-borg create --info --stats --compression {{ backup_client_compression_param }} backup-$(hostname -s)@{{ backup_serv }}:{{ hostvars[backup_serv]['backup_folder'] }}/$(hostname -s)::$(date +%F) $(find {{ backup_client_folders_to_backup }} -maxdepth 1 -type d | grep -Ev '^/$|^/tmp|^/lost\+found|^/run|^/proc|^/dev|^/sys' | tr '\n' ' ')
+{{ backup_client_borgbackup_bin }} prune -v backup-$(hostname -s)@{{ backup_serv }}:{{ hostvars[backup_serv]['backup_folder'] }}/$(hostname -s) --keep-daily=7 --keep-weekly=4 --keep-monthly=1
+{{ backup_client_borgbackup_bin }} create --info --stats --compression {{ backup_client_compression_param }} backup-$(hostname -s)@{{ backup_serv }}:{{ hostvars[backup_serv]['backup_folder'] }}/$(hostname -s)::$(date +%F) $(find {{ backup_client_folders_to_backup }} -maxdepth 1 -type d | grep -Ev '^/$|^/tmp|^/lost\+found|^/run|^/proc|^/dev|^/sys' | tr '\n' ' ')
 {% endfor %}

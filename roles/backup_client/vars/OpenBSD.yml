@@ -1,0 +1,8 @@
+---
+cron_service_name: cron
+cron_package: cron
+aliases_config_file: /etc/mail/aliases
+backup_client_user: root
+backup_client_group: wheel
+backup_client_shell: /bin/ksh
+backup_client_borgbackup_bin: /usr/local/bin/borg

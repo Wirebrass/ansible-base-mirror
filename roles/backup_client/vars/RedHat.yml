@@ -2,3 +2,7 @@
 cron_service_name: crond
 cron_package: cronie
 aliases_config_file: /etc/aliases
+backup_client_user: root
+backup_client_group: root
+backup_client_shell: /bin/bash
+backup_client_borgbackup_bin: /usr/bin/borg

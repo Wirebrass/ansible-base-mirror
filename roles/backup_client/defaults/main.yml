@@ -14,8 +14,9 @@ backup_client_folders_to_backup: ""
 # Folder to deploy backup client scripts
 backup_client_scripts_folder: "/usr/local/sbin"
 
-# Backup client user and home directory
+# Backup client user, group and home directory
 backup_client_user: "root"
+client_backup_group: "root"
 backup_client_user_home: "/root"
 
 # Crontask backup client scheduling
@@ -31,3 +32,9 @@ backup_client_mail_target: "root"
 
 # Compression parameters
 backup_client_compression_param: "lzma,9"
+
+# Shell to use in script
+backup_client_shell: /bin/bash
+
+# Bin Borgbackup
+backup_client_borgbackup_bin: /usr/bin/borg
