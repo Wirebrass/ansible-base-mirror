@@ -1,4 +1,5 @@
 #!{{ backup_client_shell }}
+export HOME={{ backup_client_user_home }}
 {% for backup_serv in groups['backup_server'] %}
 
 # Check if {{ backup_serv }} is a known host
