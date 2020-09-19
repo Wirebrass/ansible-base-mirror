@@ -1,0 +1,5 @@
+---
+# Main tasks file for web_as208585.net
+
+- import_tasks: location.yml
+- import_tasks: files.yml

@@ -1,0 +1,28 @@
+galaxy_info:
+  author: nemo
+  description: as208585 webfiles for GNU/Linux.
+  company: Wirebrass
+
+  license: license (BSD)
+
+  min_ansible_version: 2.4
+
+  platforms:
+    - name: Debian
+      versions:
+        - stretch
+        - buster
+    - name: Gentoo
+      versions:
+        - all
+    - name: EL
+      versions:
+        - 7
+
+  galaxy_tags:
+    - server
+    - as
+    - web
+    - nginx
+
+dependencies: []

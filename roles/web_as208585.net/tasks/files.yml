@@ -1,0 +1,8 @@
+---
+- name: Website index.html page created
+  copy:
+    src: "as208585.net_index.html"
+    dest: "{{ website_location }}/index.html"
+    owner: "{{ website_user }}"
+    group: "{{ website_group }}"
+    mode: '0644'

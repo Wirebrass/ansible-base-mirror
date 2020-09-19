@@ -1,0 +1,8 @@
+---
+- name: Website location created
+  file:
+    path: "{{ website_location }}"
+    state: directory
+    owner: "{{ website_user }}"
+    group: "{{ website_group }}"
+    mode: '0755'

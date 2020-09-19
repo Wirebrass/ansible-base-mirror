@@ -1,0 +1,9 @@
+---
+- hosts: web_server
+  roles:
+    - geerlingguy.nginx
+    - geerlingguy.certbot
+
+- hosts: web01.wirebrass.fr
+  roles:
+    - web_as208585.net

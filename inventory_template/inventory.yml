@@ -15,6 +15,9 @@ all:
         resolver_dns_server:
           hosts:
             myFirstCentOSHost.example.org:
+        web_server:
+          hosts:
+            myFirstGentooHost.wirebrass.fr:
         munin_server:
           hosts:
             myFirstGentooHost.example.org:

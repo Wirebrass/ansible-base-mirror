@@ -1,0 +1,9 @@
+---
+# defaults file for web_as208585.net
+
+# Files location for as208585.net website
+website_location: "/var/www/html/as208585.net"
+
+# Web user
+website_user: "www-data"
+website_group: "www-data"
