@@ -61,3 +61,15 @@
     group: icingaweb2
     mode: 0660
 
+- name: check if Icingaweb2 table and user in MariaDB exist
+  shell: mysql -u root icingaweb2 -e "SHOW TABLES;" |grep icingaweb_user
+  register: icinga2_server_register_icingaweb2_imported
+  changed_when: icinga2_server_register_icingaweb2_imported.rc == 1
+  failed_when: "'Access denied for' in icinga2_server_register_icingaweb2_imported.stderr"
+
+- name: Icingaweb2 DB schema imported
+  mysql_db:
+    state: import
+    name: icingaweb2
+    target: "{{ icinga2_server_mariadb_icingaweb2_schema_location }}"
+  when: icinga2_server_register_icingaweb2_imported.rc == 1

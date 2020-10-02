@@ -65,6 +65,7 @@ icinga2_server_mariadb_users:
     priv: "icinga.*:ALL"
 
 icinga2_server_mariadb_icinga_schema_location: "/usr/share/icinga2-ido-mysql/schema/mysql.sql"
+icinga2_server_mariadb_icingaweb2_schema_location: "/usr/share/icingaweb2/etc/schema/mysql.schema.sql"
 
 icinga2_server_api_users:
   - username: root
