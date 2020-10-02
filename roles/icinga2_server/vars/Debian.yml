@@ -1,0 +1,17 @@
+---
+
+icinga2_server_icinga2_package: icinga2
+icinga2_server_monitoring_plugins_package: monitoring-plugins
+icinga2_server_icinga2_service: icinga2
+icinga2_server_mariadb_server_package: mariadb-server
+icinga2_server_mariadb_client_package: mariadb-client
+icinga2_server_mariadb_service: mariadb
+icinga2_server_mariadb_python_package: python-mysqldb
+icinga2_server_icinga2_ido_mysql_package: icinga2-ido-mysql
+icinga2_server_mariadb_icinga_schema_location: "/usr/share/icinga2-ido-mysql/schema/mysql.sql"
+icinga2_server_icingaweb2_package: icingaweb2
+icinga2_server_icingacli_package: icingacli
+icinga2_server_apache_httpd_package: apache2
+icinga2_server_apache_httpd_service: apache2
+icinga2_server_user: nagios
+icinga2_server_group: nagios

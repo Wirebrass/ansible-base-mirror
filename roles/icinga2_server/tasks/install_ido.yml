@@ -1,0 +1,22 @@
+---
+- name: Icinga2 IDO MySQL module installed
+  package:
+    name: "{{ icinga2_server_icinga2_ido_mysql_package }}"
+    state: present
+  register: idoinstalled
+
+- name: Icinga DB schema imported
+  mysql_db:
+    state: import
+    name: icinga
+    target: "{{ icinga2_server_mariadb_icinga_schema_location }}"
+  when: idoinstalled.changed
+
+- name: Icinga2 ido-mysql feature enabled
+  icinga2_feature:
+    name: ido-mysql
+    state: present
+  notify: restart icinga2
+
+- name: Flush handlers
+  meta: flush_handlers

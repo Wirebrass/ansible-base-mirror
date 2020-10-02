@@ -1,0 +1,12 @@
+---
+
+- name: package repository updated
+  apt:
+    update_cache: yes
+  when: ansible_os_family == 'Debian'
+
+- name: "restart icinga2"
+  service:
+    name: "{{ icinga2_server_icinga2_service }}"
+    enabled: yes
+    state: restarted

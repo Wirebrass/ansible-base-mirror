@@ -1,0 +1,38 @@
+# {{ ansible_managed }}
+
+[client]
+user                           = root
+password                       = {{ icinga2_server_mariadb_root_password }}
+
+[mysqld]
+bind_address                   = {{ icinga2_server_mariadb_bind_address }}
+performance_schema             = {{ icinga2_server_mariadb_performance_schema }}
+skip-name-resolve              = {{ icinga2_server_mariadb_skip_name_resolve }}
+
+max_connections                = {{ icinga2_server_mariadb_max_connections }}
+connect_timeout                = {{ icinga2_server_mariadb_connect_timeout }}
+max_allowed_packet             = {{ icinga2_server_mariadb_max_allowed_packet }}
+
+innodb_buffer_pool_instances   = {{ icinga2_server_mariadb_innodb_buffer_pool_instances }}
+innodb_buffer_pool_size        = {{ icinga2_server_mariadb_innodb_buffer_pool_size }}
+innodb_log_file_size           = {{ icinga2_server_mariadb_innodb_log_file_size }}
+table_cache                    = {{ icinga2_server_mariadb_table_cache }}
+
+tmp_table_size                 = {{ icinga2_server_mariadb_tmp_table_size }}
+max_heap_table_size            = {{ icinga2_server_mariadb_max_heap_table_size }}
+
+query_cache_type               = {{ icinga2_server_mariadb_query_cache_type }}
+query_cache_limit              = {{ icinga2_server_mariadb_query_cache_limit }}
+query_cache_size               = {{ icinga2_server_mariadb_query_cache_size }}
+query_cache_min_res_unit       = {{ icinga2_server_mariadb_query_cache_min_res_unit }}
+
+join_buffer_size               = {{ icinga2_server_mariadb_join_buffer_size }}
+sort_buffer_size               = {{ icinga2_server_mariadb_sort_buffer_size }}
+read_buffer_size               = {{ icinga2_server_mariadb_read_buffer_size }}
+read_rnd_buffer_size           = {{ icinga2_server_mariadb_read_rnd_buffer_size }}
+key_buffer                     = {{ icinga2_server_mariadb_key_buffer }}
+
+slow_query_log                 = {{ icinga2_server_mariadb_slow_query_log }}
+long_query_time                = {{ icinga2_server_mariadb_long_query_time }}
+log_slow_admin_statements      = {{ icinga2_server_mariadb_log_slow_admin_statements }}
+log_queries_not_using_indexes  = {{ icinga2_server_mariadb_log_queries_not_using_indexes }}

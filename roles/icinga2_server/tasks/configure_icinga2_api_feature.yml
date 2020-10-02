@@ -1,0 +1,38 @@
+---
+- name: Apache HTTPD installed
+  package:
+    name: "{{ icinga2_server_apache_httpd_package }}"
+    state: present
+
+- name: Apache HTTPD started and enabled
+  service:
+    name: '{{ icinga2_server_apache_httpd_service }}'
+    enabled: true
+    state: started
+
+- name: api-users.conf file installed
+  template:
+    src: api-users.conf.j2
+    dest: /etc/icinga2/conf.d/api-users.conf
+    owner: "{{ icinga2_server_user }}"
+    group: "{{ icinga2_server_group }}"
+    mode: 0640
+  notify: restart icinga2
+  register: apiusers
+  no_log: True
+
+- name: execute icinga2 api setup command
+  command: icinga2 api setup
+  args:
+    creates: /var/lib/icinga2/ca/ca.crt
+  notify: restart icinga2
+  when: apiusers.changed
+
+- name: Icinga2 api feature enabled
+  icinga2_feature:
+    name: api
+    state: present
+  notify: restart icinga2
+
+- name: Flush handlers
+  meta: flush_handlers

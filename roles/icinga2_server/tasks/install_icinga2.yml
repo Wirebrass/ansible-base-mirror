@@ -1,0 +1,17 @@
+---
+- name: Icinga2 installed
+  package:
+    name: "{{ icinga2_server_icinga2_package }}"
+    state: present
+
+- name: Monitoring-plugins installed
+  package:
+    name: "{{ icinga2_server_monitoring_plugins_package }}"
+    state: present
+
+- name: Icinga2 started and enabled
+  service:
+    name: '{{ icinga2_server_icinga2_service }}'
+    enabled: true
+    state: started
+

@@ -1,0 +1,5 @@
+---
+- hosts: icinga2_server
+  roles:
+    - icinga2_server
+ 

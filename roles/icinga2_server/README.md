@@ -1,4 +1,4 @@
-Ansible Role: web_as208585.net
+Ansible Role: icinga2_server
 =========
 
 This role deploys as208585 webfiles on a GNU/Linux server.
@@ -30,7 +30,7 @@ Example Playbook
 
     - hosts: web_server
       roles:
-        - web_as208585.net
+        - icinga2_server
 
 License
 -------

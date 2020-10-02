@@ -1,0 +1,76 @@
+---
+- name: MariaDB server installed
+  package:
+    name: "{{ icinga2_server_mariadb_server_package }}"
+    state: present
+
+- name: MariaDB client installed
+  package:
+    name: "{{ icinga2_server_mariadb_client_package }}"
+    state: present
+
+- name: MariaDB Python installed
+  package:
+    name: "{{ icinga2_server_mariadb_python_package }}"
+    state: present
+
+- name: MariaDB started and enabled
+  service:
+    name: '{{ icinga2_server_mariadb_service }}'
+    enabled: true
+    state: started
+
+- name: ~/.my.cnf configured for root user
+  template:
+    src: my.cnf.j2
+    dest: /root/.my.cnf
+    owner: root
+    group: root
+    mode: 0600
+  no_log: True
+
+- name: root password updated
+  mysql_user:
+    name: root
+    host: "{{ item }}"
+    password: "{{ icinga2_server_mariadb_root_password }}"
+    state: present
+  with_items:
+    - 127.0.0.1
+    - ::1
+    - localhost
+  no_log: True
+
+- name: test databased deleted
+  mysql_db:
+    name: test
+    state: absent
+
+- name: anonymous users deleted
+  mysql_user:
+    name: ''
+    host: "{{ item }}"
+    state: absent
+  with_items:
+    - localhost
+    - 127.0.0.1
+    - ::1
+  no_log: True
+
+- name: databases created
+  mysql_db:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "{{ icinga2_server_mariadb_databases }}"
+
+- name: Icinga user created
+  mysql_user:
+    name: "{{ item.value.name }}"
+    password: "{{ item.value.password }}"
+    priv: "{{ item.value.priv }}"
+    state: present
+  with_dict: "{{ icinga2_server_mariadb_users }}"
+  no_log: True
+
+

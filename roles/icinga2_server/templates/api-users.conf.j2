@@ -1,0 +1,23 @@
+/**
+ *  {{ ansible_managed }}
+ */
+
+{% for user in icinga2_server_api_users %}
+object ApiUser "{{ user.username }}" {
+  password = "{{ user.password }}"
+{% if user.permissions is string %}
+  permissions = [ "{{ user.permissions }}" ]
+{% else %}
+  permissions = [
+{% for permission in user.permissions %}
+    {
+      permission = "{{ permission.name }}"
+{% if permission.filter is defined %}
+      filter = {{ '{{' }} {{ permission.filter }} {{ '}}' }}
+{% endif %}
+    },
+{% endfor %}
+  ]
+{% endif %}
+}
+{% endfor %}

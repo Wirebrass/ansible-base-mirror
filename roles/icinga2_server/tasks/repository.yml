@@ -1,0 +1,14 @@
+---
+- name: Icinga apt key installed
+  apt_key:
+    url: '{{ icinga2_server_apt_key }}'
+    state: present
+  when: ansible_os_family == 'Debian'
+
+- name: Icinga APT repository configured
+  apt_repository:
+    repo: '{{ icinga2_server_apt_repository }}'
+    state: present
+  when: ansible_os_family == 'Debian'
+  notify: package repository updated
+

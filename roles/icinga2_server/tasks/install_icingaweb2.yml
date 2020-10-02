@@ -1,0 +1,10 @@
+---
+- name: Icingaweb2 installed
+  package:
+    name: "{{ icinga2_server_icingaweb2_package }}"
+    state: present
+
+- name: Icingacli installed
+  package:
+    name: "{{ icinga2_server_icingacli_package }}"
+    state: present
