@@ -1,0 +1,23 @@
+;{{ ansible_managed }}
+
+[icingaweb_db]
+type = "db"
+db = "mysql"
+host = "localhost"
+port = "3306"
+dbname = "icingaweb2"
+username = "icingaweb2_user"
+password = "{{ vault_icinga2_server_mariadb_users_icingaweb2_password }}"
+charset = "UTF8"
+use_ssl = "0"
+
+[icinga_ido]
+type = "db"
+db = "mysql"
+host = "localhost"
+port = "3306"
+dbname = "icinga"
+username = "icinga_user"
+password = "{{ vault_icinga2_server_mariadb_users_icinga_password }}"
+charset = "UTF8"
+use_ssl = "0"

@@ -1,0 +1,63 @@
+---
+- name: Icingaweb2 config file deployed
+  template:
+    src: '{{ item }}.j2'
+    dest: '/etc/icingaweb2/{{ item }}'
+    owner: root
+    group: icingaweb2
+    mode: 0660
+  loop:
+    - config.ini
+    - resources.ini
+    - roles.ini
+    - groups.ini
+    - authentication.ini
+  no_log: True
+
+- name: icingaweb2 modules directory created
+  file:
+    name: /etc/icingaweb2/modules/monitoring
+    state: directory
+    owner: root
+    group: icingaweb2
+    mode: 0750
+
+- name: icingaweb2 enabledModules directory created
+  file:
+    name: /etc/icingaweb2/enabledModules
+    state: directory
+    owner: root
+    group: icingaweb2
+    mode: 0750
+
+- name: icingaweb2 monitoring module enabled
+  file:
+    src: /usr/share/icingaweb2/modules/monitoring
+    dest: /etc/icingaweb2/enabledModules/monitoring
+    state: link
+    mode: 0750
+
+- name: icingaweb2 monitoring module configured
+  template:
+    src: modules_config.ini.j2
+    dest: /etc/icingaweb2/modules/monitoring/config.ini
+    owner: root
+    group: icingaweb2
+    mode: 0660
+
+- name: icingaweb2 monitoring module commandtransport configured
+  template:
+    src: modules_commandtransports.ini.j2
+    dest: /etc/icingaweb2/modules/monitoring/commandtransports.ini
+    owner: root
+    group: icingaweb2
+    mode: 0660
+
+- name: icingaweb2 monitoring module backends configured
+  template:
+    src: modules_backends.ini.j2
+    dest: /etc/icingaweb2/modules/monitoring/backends.ini
+    owner: root
+    group: icingaweb2
+    mode: 0660
+
