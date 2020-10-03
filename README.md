@@ -173,3 +173,7 @@ This playbook deploys a Munin server and Munin "clients" using async to get info
 
 This playbook deploys and configures an OpenLDAP server.
 
+### playbook_icinga2_deploy.yml
+
+This playbook deploys and configures an Icinga2/MariaDB/Icingaweb2 server. 
+
