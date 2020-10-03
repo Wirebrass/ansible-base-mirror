@@ -91,3 +91,6 @@ icinga2_server_ticket_salt: ""
 icinga2_server_custom_hostgroup: wirebrass
 
 icinga2_server_nagios_plugins_location: "/usr/lib/nagios/plugins/"
+icinga2_server_icinga_ssh_pubkey: ""
+icinga2_server_icinga_ssh_privkey: ""
+

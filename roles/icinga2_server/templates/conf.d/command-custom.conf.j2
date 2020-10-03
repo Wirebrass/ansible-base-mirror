@@ -110,7 +110,7 @@ object CheckCommand "by_ssh_wirebrass" {
 
   vars.by_ssh_custom_plugins_path = "{{ icinga2_server_nagios_plugins_location }}"
   vars.by_ssh_logname = "nagios"
-  vars.by_ssh_identity = "/var/lib/icinga2/.ssh/id_rsa"
+  vars.by_ssh_identity = "/home/nagios/.ssh/id_rsa"
   vars.by_ssh_options = [ "ControlMaster=auto","ControlPath=/var/run/icinga2/$host.name$","ControlPersist=10m"]
 
 }

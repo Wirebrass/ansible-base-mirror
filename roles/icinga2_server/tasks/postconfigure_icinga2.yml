@@ -38,3 +38,52 @@
     - check_rdns
   notify: restart icinga2
 
+- name: Nagios SSH folder created
+  file:
+    path: "/home/{{ icinga2_server_user }}/.ssh"
+    state: directory
+    owner: "{{ icinga2_server_user }}"
+    group: "{{ icinga2_server_group }}"
+    mode: '0755'
+
+- name: Private key to access supervised servers
+  copy:
+    dest: "/home/{{ icinga2_server_user }}/.ssh/id_rsa"
+    owner: "{{ icinga2_server_user }}"
+    group: "{{ icinga2_server_group }}"
+    mode: '0600'
+    content: "{{ icinga2_server_icinga_ssh_privkey }}"
+  no_log: True
+
+- name: Public key to access supervised servers
+  copy:
+    dest: "/home/{{ icinga2_server_user }}/.ssh/id_rsa.pub"
+    owner: "{{ icinga2_server_user }}"
+    group: "{{ icinga2_server_group }}"
+    mode: '0644'
+    content: "{{ icinga2_server_icinga_ssh_pubkey + '\n' }}"
+
+- name: Icinga2 config hosts folder created
+  file:
+    path: "/etc/icinga2/conf.d/hosts"
+    state: directory
+    owner: "{{ icinga2_server_user }}"
+    group: "{{ icinga2_server_group }}"
+    mode: '0755'
+
+- name: Python DNS module server installed
+  package:
+    name: "python-dns"
+    state: present
+
+- name: Python dnspython module server installed
+  package:
+    name: "python-dnspython"
+    state: present
+
+- name: Icingaweb2 monitoring module folder permissions configured
+  file:
+    path: "/usr/share/icingaweb2/modules/monitoring"
+    state: directory
+    mode: '0755'
+
