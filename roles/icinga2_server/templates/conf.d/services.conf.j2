@@ -1,0 +1,277 @@
+/*
+ * Service apply rules.
+ *
+ * The CheckCommand objects `ping4`, `ping6`, etc
+ * are provided by the plugin check command templates.
+ * Check the documentation for details.
+ *
+ * Tip: Use `icinga2 object list --type Service` to
+ * list all service objects after running
+ * configuration validation (`icinga2 daemon -C`).
+ */
+
+/*
+ * This is an example host based on your
+ * local host's FQDN. Specify the NodeName
+ * constant in `constants.conf` or use your
+ * own description, e.g. "db-host-1".
+ */
+
+/*
+ * These are generic `ping4` and `ping6`
+ * checks applied to all hosts having the
+ * `address` resp. `address6` attribute
+ * defined.
+ */
+apply Service "ping4" {
+  import "generic-service"
+
+  check_command = "ping4"
+
+  assign where host.address
+}
+
+apply Service "ping6" {
+  import "generic-service"
+
+  check_command = "ping6"
+
+  assign where host.address6
+}
+
+/*
+ * Apply the `ssh` service to all hosts
+ * with the `address` attribute defined and
+ * the custom attribute `os` set to `Linux`.
+ */
+apply Service "ssh" {
+  import "generic-service"
+
+  check_command = "ssh"
+
+  assign where (host.address || host.address6) && host.vars.os == "Linux"
+}
+
+apply Service "dns-forward-ipv4" {
+    import "generic-service"
+
+    check_command = "dig"
+    vars.dig_lookup = "$host_name$"
+    vars.dig_server = "80.67.169.40"
+    vars.dig_record_type = "A"
+    vars.dig_ipv4 = "true"
+
+    if (host.vars.dig_expected_address) {
+        vars.dig_expected_address = host.vars.dig_expected_address
+    } else {
+        vars.dig_expected_address = "$address$"
+    }
+
+    assign where (host.address) && host.vars.os == "Linux"
+}
+
+apply Service "dns-forward-ipv6" {
+    import "generic-service"
+
+    check_command = "dig"
+    vars.dig_lookup = "$host_name$"
+    vars.dig_server = "2001:910:800::12"
+    vars.dig_record_type = "AAAA"
+    vars.dig_ipv6 = "true"
+
+    if (host.vars.dig_expected_address6) {
+        vars.dig_expected_address = host.vars.dig_expected_address6
+    } else {
+        vars.dig_expected_address = "$address6$"
+    }
+
+    assign where (host.address6) && host.vars.os == "Linux"
+}
+
+apply Service "dns-reverse-ipv4" {
+    import "generic-service"
+
+    check_command = "rdns"
+    vars.sla = "24x7"
+    vars.rdns_server = "80.67.169.40"
+
+    if (host.vars.rdns_expect) {
+        vars.rdns_expect = host.vars.rdns_expect
+    } else {
+        vars.rdns_expect = "$host_name$."
+    }
+
+    if (host.vars.rdns_address) {
+        vars.rdns_address = host.vars.rdns_address
+    } else {
+        vars.rdns_address = "$address$"
+    }
+
+    assign where (host.address) && host.vars.os == "Linux"# && host.name != "vm-mw-01.wirebrass.fr"
+}
+
+apply Service "dns-reverse-ipv6" {
+    import "generic-service"
+
+    check_command = "rdns"
+    vars.sla = "24x7"
+    vars.rdns_server = "2001:910:800::12"
+
+    if (host.vars.rdns_expect6) {
+        vars.rdns_expect = host.vars.rdns_expect6
+    } else {
+        vars.rdns_expect = "$host_name$."
+    }
+
+    if (host.vars.rdns_address6) {
+        vars.rdns_address = host.vars.rdns_address6
+    } else {
+        vars.rdns_address = "$address6$"
+    }
+
+    assign where (host.address6) && host.vars.os == "Linux" && host.name != "vm-ttn-01.wirebrass.fr" && host.name != "vm-fma-01.wirebrass.fr"# && host.name != "vm-mw-01.wirebrass.fr"
+}
+
+apply Service "ntp_by_ssh" {
+  import "generic-service"
+  check_command = "by_ssh_wirebrass"
+
+  vars.by_ssh_timeout = 30
+  vars.by_ssh_command = "$by_ssh_custom_plugins_path$check_ntp_time -H pool.ntp.org"
+
+  assign where host.vars.os == "Linux" && host.vars.agent_type == "ssh"
+}
+
+apply Service "uptime_by_ssh" {
+  import "generic-service"
+  check_command = "by_ssh_wirebrass"
+
+  vars.by_ssh_custom_uptime = 5184000
+  vars.by_ssh_command = "test $$(cut -d. -f1 /proc/uptime) -lt $by_ssh_custom_uptime$"
+
+  assign where host.vars.os == "Linux" && host.vars.agent_type == "ssh"
+}
+
+apply Service "load_by_ssh" {
+  import "generic-service"
+  check_command = "by_ssh_wirebrass"
+
+  vars.load_by_ssh_warn = "7.0,6.0,6.0"
+  vars.load_by_ssh_crit = "8.0,7.0,7.5"
+
+  vars.by_ssh_command = "$by_ssh_custom_plugins_path$check_load -w $load_by_ssh_warn$ -c $load_by_ssh_crit$"
+
+  assign where host.vars.os == "Linux" && host.vars.agent_type == "ssh"
+}
+
+apply Service "users_by_ssh" {
+  import "generic-service"
+  check_command = "by_ssh_wirebrass"
+
+  vars.users_wgreater = 5
+  vars.users_cgreater = 10
+
+  vars.by_ssh_command = "$by_ssh_custom_plugins_path$check_users -w $users_wgreater$ -c $users_cgreater$"
+
+  assign where host.vars.os == "Linux" && host.vars.agent_type == "ssh"
+}
+
+apply Service "disk_by_ssh_device" {
+  import "generic-service"
+  check_command = "by_ssh_wirebrass"
+
+  vars.by_ssh_command = "$by_ssh_custom_plugins_path$check_disk -w 20% -c 10% -A -x /sys/kernel/debug/tracing -x nsfs -x shm -x overlay"
+
+  assign where host.vars.os == "Linux" && host.vars.agent_type == "ssh"
+}
+
+apply Service "procs_zombie_by_ssh" {
+  import "generic-service"
+  check_command = "by_ssh_wirebrass"
+
+  vars.by_ssh_command = "$by_ssh_custom_plugins_path$check_procs -w 5 -c 10 -s Z"
+
+  assign where host.vars.os == "Linux" && host.vars.agent_type == "ssh"
+}
+
+apply Service "lastupdate_by_ssh" {
+  import "generic-service"
+  check_command = "by_ssh_wirebrass"
+
+  vars.by_ssh_command = "$by_ssh_custom_plugins_path$check_file_age -w 93600 -c 180000 -f /var/lastupdate"
+
+  assign where host.vars.os == "Linux" && host.vars.agent_type == "ssh" && host.name != "hv01.wirebrass.fr" && host.name != "hv02.wirebrass.fr" && host.name != "hv03.wirebrass.fr" && host.name != "radiosupinfo.wirebrass.fr" && host.name != "radio.supinfo.com.wirebrass.fr"
+
+}
+
+apply Service "procs_by_ssh" {
+  import "generic-service"
+  check_command = "by_ssh_wirebrass"
+
+  vars.procs_by_ssh_warn = 400
+  vars.procs_by_ssh_crit = 500
+
+  vars.by_ssh_command = "$by_ssh_custom_plugins_path$check_procs -w $procs_by_ssh_warn$ -c $procs_by_ssh_crit$"
+
+  assign where host.vars.os == "Linux" && host.vars.agent_type == "ssh"
+}
+
+apply Service for (http_vhost => config in host.vars.http_vhosts) {
+  import "generic-service"
+
+  check_command = "http"
+
+  vars += config
+}
+
+apply Service for (disk => config in host.vars.disks) {
+  import "generic-service"
+
+  check_command = "disk"
+
+  vars += config
+}
+
+apply Service "icinga" {
+  import "generic-service"
+
+  check_command = "icinga"
+
+  assign where host.name == NodeName
+}
+/*
+apply Service "load" {
+  import "generic-service"
+
+  check_command = "load"
+*/
+  /* Used by the ScheduledDowntime apply rule in `downtimes.conf`. */
+  /*vars.backup_downtime = "02:00-03:00"
+
+  assign where host.name == NodeName
+}*/
+
+apply Service "procs" {
+  import "generic-service"
+
+  check_command = "procs"
+
+  assign where host.name == NodeName
+}
+
+apply Service "swap" {
+  import "generic-service"
+
+  check_command = "swap"
+
+  assign where host.name == NodeName
+}
+
+apply Service "users" {
+  import "generic-service"
+
+  check_command = "users"
+
+  assign where host.name == NodeName
+}
+

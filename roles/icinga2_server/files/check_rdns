@@ -1,0 +1,144 @@
+#!/bin/sh
+
+# Copyright (c) 2013 Stefan Huber <shuber@sthu.org>
+#
+# Permission is hereby granted, free of charge, to any person
+# obtaining a copy of this software and associated documentation
+# files (the "Software"), to deal in the Software without
+# restriction, including without limitation the rights to use,
+# copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the
+# Software is furnished to do so, subject to the following
+# conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+# OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+# HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+# OTHER DEALINGS IN THE SOFTWARE.
+
+. $(dirname $0)/utils.sh
+
+
+PROGNAME=$(basename $0)
+REVISION="0.1"
+
+usage() {
+
+    cat <<EOF
+check_rdns v$REVISION
+Copyright (c) 2013 Stefan Huber <shuber@sthu.org>
+
+Usage: $PROGNAME -H ip-address [OPTIONS]
+
+Arguments:
+    -H, --address IP-address    The ip-addres on which reverse-DNS is performed.
+
+Options:
+    -h, --help                  Print this text.
+    -a, --expect=HOST           The expected result.
+    -s, --server=HOST           The DNS server to contact.
+    -t, --timeout=SEC           Seconds before lookup times out. (Default: 10)
+    -w, --warning=MSEC          Return warning if lookup time exceeds value.
+    -c, --critical=MSEC         Return critical if lookup time exceeds value.
+    -V, --version               Print version info.
+EOF
+}
+
+
+TEMP=`getopt -o "H:a:c:hs:t:w:V" --long "help,address:,expect:,critical:,server:,timeout:,warning:,version" -n "$PROGNAME" -- "$@"`
+eval set - "$TEMP"
+
+ADDRESS=
+EXPECT=
+SERVER=
+TIMEOUT=10
+WARNING=
+CRITICAL=
+
+while true; do
+    case "$1" in
+        -h | --help )
+            usage
+            exit $STATE_OK ;;
+        -V | --version )
+            echo "$PROGNAME v$REVISION"
+            exit $STATE_OK ;;
+        -H | --address )
+            ADDRESS="$2"; shift 2 ;;
+        -a | --expect )
+            EXPECT="$2"; shift 2 ;;
+        -s | --server )
+            SERVER="$2"; shift 2 ;;
+        -t | --timeout )
+            TIMEOUT="$2"; shift 2 ;;
+        -w | --warning )
+            WARNING="$2"; shift 2 ;;
+        -c | --critical )
+            CRITICAL="$2"; shift 2 ;;
+        -- )
+            shift
+            break ;;
+        * )
+            break ;;
+    esac
+done
+
+if [ -z "$ADDRESS" ]; then
+    echo "Error: No address given."
+    usage
+    exit $STATE_CRITICAL
+fi
+
+DIGOPTS="+time=$TIMEOUT +noquestion +noauthority -t PTR"
+[ -z "$SERVER" ] || DIGOPTS="@$SERVER $DIGOPTS"
+
+RESULT=$(dig $DIGOPTS -x "$ADDRESS"):
+DIGSTATUS=$?
+
+if [ $DIGSTATUS != "0" ]; then
+    echo "DNS failed: dig exit code $DIGSTATUS |"
+    exit $STATE_CRITICAL
+fi
+
+# Get the actual result
+HOST=$(echo "$RESULT" | grep -m 1 -o "[[:space:]]IN[[:space:]]*PTR[[:space:]].*\.$" | awk '{ print $3 }' )
+if [ -z "$HOST" ]; then
+    echo "DNS failed: reverse DNS gave no answer. |"
+    exit $STATE_CRITICAL
+fi
+
+
+# Get the query time in msec
+QUERYTIME=$(echo "$RESULT" | grep -m 1 "Query time:" | cut -d ":" -f 2 | awk '{ print $1 }')
+
+
+MATCHED=
+if [ -n "$EXPECT" ]; then
+    if [ "$EXPECT" != "$HOST" ]; then
+        echo "DNS critical - query result \"$HOST\" != \"$EXPECT\", query time: $QUERYTIME msec |"
+        exit $STATE_CRITICAL
+    else
+        MATCHED=" (match ok)"
+    fi
+fi
+
+if [ -n "$CRITICAL" ] && [ "$QUERYTIME" -gt "$CRITICAL" ]; then
+    echo "DNS critical - query time $QUERYTIME msec too large ($CRITICAL msec), query result: \"$HOST\"$MATCHED |"
+    exit $STATE_CRITICAL
+fi
+
+if [ -n "$WARNING" ] && [ "$QUERYTIME" -gt "$WARNING" ]; then
+    echo "DNS warning - query time $QUERYTIME msec too large ($WARNING msec), query result: \"$HOST\"$MATCHED |"
+    exit $STATE_WARNING
+fi
+
+echo "DNS OK - query time $QUERYTIME msec, query result: \"$HOST\"$MATCHED |"
+exit $STATE_OK
+

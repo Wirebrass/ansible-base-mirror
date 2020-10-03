@@ -1,0 +1,31 @@
+/**
+ * The example user 'icingaadmin' and the example
+ * group 'icingaadmins'.
+ */
+
+object User "icingaadmin" {
+  import "generic-user"
+
+  display_name = "Icinga 2 Admin"
+  groups = [ "icingaadmins" ]
+
+  email = "root@localhost"
+}
+
+object UserGroup "icingaadmins" {
+  display_name = "Icinga 2 Admin Group"
+}
+
+object User "{{ icinga2_server_icingaweb2_main_user }}" {
+  import "generic-user"
+
+  display_name = "{{ icinga2_server_icingaweb2_main_user }}"
+  groups = [ "icingaadmins", "{{ icinga2_server_custom_hostgroup }}" ]
+
+  email = "{{ icinga2_server_icingaweb2_main_user_email }}"
+}
+
+object UserGroup "{{ icinga2_server_custom_hostgroup }}" {
+        display_name = "{{ icinga2_server_custom_hostgroup }}"
+}
+

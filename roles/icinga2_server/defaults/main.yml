@@ -74,6 +74,7 @@ icinga2_server_api_users:
 
 icinga2_server_icingaweb2_main_user: john
 icinga2_server_icingaweb2_main_user_password: needToBeChanged
+icinga2_server_icingaweb2_main_user_email: "needToBeChange@example.org"
 icinga2_server_apache2_service: apache2
 icinga2_server_apache2_default_index: "/var/www/html/index.html"
 icinga2_server_apache2_user: "www-data"
@@ -86,3 +87,7 @@ icinga2_server_apache2_modules_to_disable:
   - negociation
  
 icinga2_server_icingaweb2_main_user_password_hash_manual: needToBeChanged
+icinga2_server_ticket_salt: ""
+icinga2_server_custom_hostgroup: wirebrass
+
+icinga2_server_nagios_plugins_location: "/usr/lib/nagios/plugins/"

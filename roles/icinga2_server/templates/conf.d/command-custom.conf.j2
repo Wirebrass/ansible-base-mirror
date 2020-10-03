@@ -1,0 +1,143 @@
+object CheckCommand "dane" {
+    import "plugin-check-command"
+
+    command = [ PluginDir + "/check_dane" ]
+
+    arguments = {
+        "--host" = {
+            value = "$dane_host$"
+            required = true
+            description = "Hostname to check"
+        }
+        "--port" = {
+            value = "$dane_port$"
+            required = true
+            description = "TCP port to check"
+        }
+        "--connect-host" = {
+            value = "$dane_connect_host$"
+            description = "Connect to this host instead of $dane_host$"
+        }
+         "--connect-port" = {
+            value = "$dane_connect_port$"
+            description = "Connect to this host instead of $dane_port$"
+        }
+        "--starttls" = {
+            value = "$dane_starttls$"
+            description = "Send the protocol-specific messages to enable TLS. Possible values: smtp, imap, xmpp, quassel"
+        }
+        "--check-pkix" = {
+            set_if = "$dane_check_pkix$"
+            description = "Additionally perform traditional checks on the certificate (ca trust path, hostname, expiry)."
+        }
+        "--nameserver" = {
+            value = "$dane_nameserver$"
+            description = "Use a custom nameserver."
+        }
+        "--min-days-valid" = {
+            value = "$dane_min_days_valid$"
+            description = "Minimum number of days a certificate has to be valid. Format: INTEGER[,INTEGER]. 1st is #days for warning, 2nd is critical."
+        }
+        "--timeout" = {
+            value = "$dane_timeout$"
+            description = "Network timeout in sec. Default: 10"
+        }
+        "--no-dnssec" = {
+            set_if = "$dane_no_dnssec$"
+            description = "Continue even when DNS replies aren't DNSSEC authenticated."
+        }
+    }
+}
+
+object CheckCommand "openvpn" {
+        import "ipv4-or-ipv6"
+
+        command = [ PluginDir + "/check_openvpn", "$openvpn_address$" ]
+
+        arguments = {
+                "-p" = {
+                        value = "$openvpn_port$"
+                        description = "set port number (default is 1194)"
+                }
+                "-t" = {
+                        set_if = "$openvpn_tcp$"
+                        description = "use tcp instead of udp"
+                }
+                "--timeout" = {
+                        value = "$openvpn_timeout$"
+                        description = "set timeout in seconds, for udp counted per packet (default is 2)"
+                }
+                "--digest" = {
+                        value = "$openvpn_digest$"
+                        description = "set digest algorithm (default is 'sha1')"
+                }
+                "--digest-size" = {
+                        value = "$openvpn_digest_size$"
+                        description = "set HMAC digest size"
+                }
+                "--digest-key-client" = {
+                        value = "$openvpn_digest_key_client$"
+                        description = "set client HMAC key"
+                }
+                "--digest-key-server" = {
+                        value = "$openvpn_key_server$"
+                        description = "set server HMAC key for packet validation"
+                }
+                "--tls-auth" = {
+                        value = "$openvpn_tls_auth$"
+                        description = "set tls-auth file"
+                }
+                "--tls-auth-inverse" = {
+                        value = "$openvpn_tls_auth_inverse$"
+                        description = "set tls-auth file direction to inverse (1)"
+                }
+                "--retrycount" = {
+                        value = "$openvpn_retrycount$"
+                        description = "number of udp retries before giving up (default is 3)"
+                }
+                "--no-validation" = {
+                        value = "$openvpn_no_validation$"
+                        description = "do not validate response"
+                }
+        }
+
+        vars.openvpn_address = "$check_address$"
+        vars.openvpn_tls_auth = "$openvpn_takey$"
+}
+
+object CheckCommand "by_ssh_wirebrass" {
+  import "by_ssh"
+
+  vars.by_ssh_custom_plugins_path = "{{ icinga2_server_nagios_plugins_location }}"
+  vars.by_ssh_logname = "nagios"
+  vars.by_ssh_identity = "/var/lib/icinga2/.ssh/id_rsa"
+  vars.by_ssh_options = [ "ControlMaster=auto","ControlPath=/var/run/icinga2/$host.name$","ControlPersist=10m"]
+
+}
+
+object CheckCommand "rdns" {
+
+    import "plugin-check-command"
+
+    command = [ PluginDir + "/check_rdns" ]
+
+    arguments = {
+        "-H" = {
+            value = "$rdns_address$"
+            required = true
+            description = "Address to reverse"
+        }
+        "-a" = {
+            value = "$rdns_expect$"
+            required = false
+            description = "Expected result"
+        }
+        "-s" = {
+            value = "$rdns_server$"
+            required = false
+            description = "The DNS server to contact"
+        }
+    }
+
+}
+

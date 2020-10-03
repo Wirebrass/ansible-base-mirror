@@ -88,7 +88,7 @@
     group: "{{ icinga2_server_group }}"
     mode: 0600
   notify: restart icinga2
-#  no_log: True
+  no_log: True
 
 - name: execute icinga2 api setup command
   command: icinga2 api setup
@@ -102,6 +102,16 @@
     name: api
     state: present
   notify: restart icinga2
+
+- name: constants.conf file installed
+  template:
+    src: constants.conf.j2
+    dest: /etc/icinga2/constants.conf
+    owner: "{{ icinga2_server_user }}"
+    group: "{{ icinga2_server_group }}"
+    mode: 0644
+  notify: restart icinga2
+  no_log: True
 
 - name: Flush handlers
   meta: flush_handlers

@@ -1,0 +1,40 @@
+---
+- name: Icinga2 post config file deployed
+  template:
+    src: 'conf.d/{{ item }}.j2'
+    dest: '/etc/icinga2/conf.d/{{ item }}'
+    owner: "{{ icinga2_server_user }}"
+    group: "{{ icinga2_server_group }}"
+    mode: 0644
+  loop:
+    - commands.conf
+    - groups.conf
+    - notifications.conf
+    - services.conf
+    - templates.conf
+    - users.conf
+    - timeperiods.conf
+  notify: restart icinga2
+
+- name: Icinga2 custom commands deployed
+  template:
+    src: 'conf.d/command-custom.conf.j2'
+    dest: '/usr/share/icinga2/include/command-custom.conf'
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart icinga2
+
+- name: custom nagios plugins deployed
+  copy:
+    src: "{{ item }}"
+    dest: "{{ icinga2_server_nagios_plugins_location }}/{{ item }}"
+    owner: root
+    group: root
+    mode: 0755
+  loop:
+    - check_dane
+    - check_openvpn
+    - check_rdns
+  notify: restart icinga2
+
