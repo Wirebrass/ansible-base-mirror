@@ -1,0 +1,23 @@
+galaxy_info:
+  author: nemo
+  description: Icinga2, MariaDB and Icingaweb2 for GNU/Linux.
+  company: Wirebrass
+
+  license: license (BSD)
+
+  min_ansible_version: 2.4
+
+  platforms:
+    - name: Debian
+      versions:
+        - stretch
+        - buster
+
+  galaxy_tags:
+    - icinga2
+    - icingaweb2
+    - mariadb
+    - nagios
+    - monitoring
+
+dependencies: []
