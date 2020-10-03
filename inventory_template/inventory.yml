@@ -24,6 +24,9 @@ all:
         ldap_server:
           hosts:
             mySecondGentooHost.anotherexample.org:
+        icinga2_server:
+          hosts:
+            mySecondGentooHost.anotherexample.org:
     os:
       children:
         os_gentoo:
