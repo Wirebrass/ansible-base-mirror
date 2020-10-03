@@ -73,3 +73,36 @@
     name: icingaweb2
     target: "{{ icinga2_server_mariadb_icingaweb2_schema_location }}"
   when: icinga2_server_register_icingaweb2_imported.rc == 1
+
+- name: check if Icingaweb2 main user exist
+  shell: mysql -u root icingaweb2 -e "SELECT * FROM icingaweb2.icingaweb_user;" |grep "{{ icinga2_server_icingaweb2_main_user }}"
+  register: icinga2_server_register_icingaweb2_main_user_exist
+  changed_when: icinga2_server_register_icingaweb2_main_user_exist.rc == 1
+  failed_when: "'Access denied for' in icinga2_server_register_icingaweb2_main_user_exist.stderr"
+  no_log: True
+
+- name: insert icingaweb2 main user into database
+  command: mysql -u root icingaweb2 -e "INSERT INTO icingaweb_user (name, active, password_hash) VALUES ('{{ icinga2_server_icingaweb2_main_user }}', 1, '{{ icinga2_server_icingaweb2_main_user_password_hash_manual }}')"
+  when: icinga2_server_register_icingaweb2_main_user_exist.rc == 1
+  no_log: True
+
+- name: check if Icingaweb2 Administrators group exist
+  shell: mysql -u root icingaweb2 -e "SELECT * FROM icingaweb2.icingaweb_group;" |grep Administrators
+  register: icinga2_server_register_icingaweb2_administrators_group_exist
+  changed_when: icinga2_server_register_icingaweb2_administrators_group_exist.rc == 1
+  failed_when: "'Access denied for' in icinga2_server_register_icingaweb2_administrators_group_exist.stderr"
+
+- name: insert Icingaweb2 Administrators group into database
+  command: mysql -u root icingaweb2 -e "INSERT INTO icingaweb_group (name) VALUES ('Administrators')"
+  when: icinga2_server_register_icingaweb2_administrators_group_exist.rc == 1
+
+- name: check if main user in Icingaweb2 Administrators group
+  shell: mysql -u root icingaweb2 -e "SELECT * FROM icingaweb2.icingaweb_group_membership;" |grep "{{ icinga2_server_icingaweb2_main_user }}"
+  register: icinga2_server_register_icingaweb2_main_user_in_administrators_group
+  changed_when: icinga2_server_register_icingaweb2_main_user_in_administrators_group.rc == 1
+  failed_when: "'Access denied for' in icinga2_server_register_icingaweb2_main_user_in_administrators_group.stderr"
+
+- name: main user in Icingaweb2 Administrators group
+  command: mysql -u root icingaweb2 -e "INSERT INTO icingaweb_group_membership (group_id, username) VALUES ('1', '{{ icinga2_server_icingaweb2_main_user }}')"
+  when: icinga2_server_register_icingaweb2_main_user_in_administrators_group.rc == 1
+

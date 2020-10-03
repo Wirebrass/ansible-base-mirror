@@ -15,3 +15,9 @@ icinga2_server_apache_httpd_package: apache2
 icinga2_server_apache_httpd_service: apache2
 icinga2_server_user: nagios
 icinga2_server_group: nagios
+icinga2_server_icingaweb2_main_user: john
+icinga2_server_icingaweb2_main_user_password: needToBeChanged
+icinga2_server_apache2_service: apache2
+icinga2_server_apache2_default_index: "/var/www/html/index.html"
+icinga2_server_apache2_user: "www-data"
+icinga2_server_apache2_group: "www-data"

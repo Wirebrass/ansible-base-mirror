@@ -6,6 +6,6 @@
 #- import_tasks: install_icinga2.yml
 #- import_tasks: install_mariadb.yml
 #- import_tasks: install_ido.yml
-#- import_tasks: configure_icinga2_api_feature.yml
+- import_tasks: configure_icinga2_api_feature.yml
 #- import_tasks: install_icingaweb2.yml
-- import_tasks: configure_icingaweb2.yml
+#- import_tasks: configure_icingaweb2.yml

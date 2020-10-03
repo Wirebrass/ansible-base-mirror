@@ -10,3 +10,9 @@
     name: "{{ icinga2_server_icinga2_service }}"
     enabled: yes
     state: restarted
+
+- name: "restart apache2"
+  service:
+    name: "{{ icinga2_server_apache2_service }}"
+    enabled: yes
+    state: restarted

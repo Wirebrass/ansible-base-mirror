@@ -3,6 +3,65 @@
   package:
     name: "{{ icinga2_server_apache_httpd_package }}"
     state: present
+  register: apacheinstall
+
+- name: certificate deployed
+  command: "cp -pf /etc/letsencrypt/live/{{ inventory_hostname }}/*.pem /etc/apache2/ && chown www-data: /etc/apache2/*.pem"
+  when: apacheinstall.changed
+
+- name: default index.html page defined
+  copy:
+    src: index.html
+    dest: "{{ icinga2_server_apache2_default_index }}"
+    owner: "{{ icinga2_server_apache2_user }}"
+    group: "{{ icinga2_server_apache2_group }}"
+    mode: 0644
+    
+- name: Apache SSL module enabled
+  apache2_module:
+    state: present
+    name: ssl
+  notify: restart apache2
+
+- name: Useless apache modules disabled
+  apache2_module:
+    state: absent
+    name: "{{ item }}"
+    force: True
+  with_items: "{{ icinga2_server_apache2_modules_to_disable }}"
+  notify: restart apache2
+
+- name: Apache HTTP conf deployed
+  template:
+    src: 000-default.conf.j2
+    dest: /etc/apache2/sites-available/000-default.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart apache2
+
+- name: Apache HTTPS conf deployed
+  template:
+    src: default-ssl.conf.j2
+    dest: /etc/apache2/sites-available/default-ssl.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart apache2
+
+- name: Apache HTTP conf enabled
+  file:
+    src: ../sites-available/000-default.conf
+    dest: /etc/apache2/sites-enabled/000-default.conf
+    state: link
+  notify: restart apache2
+
+- name: Apache HTTPS conf enabled
+  file:
+    src: ../sites-available/default-ssl.conf
+    dest: /etc/apache2/sites-enabled/default-ssl.conf
+    state: link
+  notify: restart apache2
 
 - name: Apache HTTPD started and enabled
   service:
@@ -20,6 +79,16 @@
   notify: restart icinga2
   register: apiusers
   no_log: True
+
+- name: ido-mysql.conf file installed
+  template:
+    src: ido-mysql.conf.j2
+    dest: /etc/icinga2/features-available/ido-mysql.conf
+    owner: "{{ icinga2_server_user }}"
+    group: "{{ icinga2_server_group }}"
+    mode: 0600
+  notify: restart icinga2
+#  no_log: True
 
 - name: execute icinga2 api setup command
   command: icinga2 api setup
