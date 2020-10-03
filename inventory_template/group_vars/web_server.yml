@@ -1,0 +1,14 @@
+# Role ansible-role-certbot : defina auto renew, schedule, ...
+certbot_auto_renew: true
+certbot_auto_renew_user: "root"
+certbot_auto_renew_hour: "3"
+certbot_auto_renew_minute: "35"
+certbot_auto_renew_options: "--quiet --no-self-upgrade --pre-hook \"/etc/init.d/nginx stop\" --post-hook \"/etc/init.d/nginx start\""
+certbot_create_if_missing: true
+certbot_create_method: standalone
+certbot_create_standalone_stop_services:
+  - nginx
+certbot_certs:
+  - domains:
+    - "{{ inventory_hostname }}"
+

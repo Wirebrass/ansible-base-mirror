@@ -1,0 +1,41 @@
+---
+
+icinga2_server_mariadb_root_password: "{{ vault_icinga2_server_mariadb_root_password }}"
+icinga2_server_icingaweb2_main_user_password: "{{ vault_icinga2_server_icingaweb2_main_user_password }}"
+icinga2_server_icingaweb2_main_user_password_hash_manual: "{{ vault_icinga2_server_icingaweb2_main_user_password_hash_manual }}"
+
+icinga2_server_mariadb_users:
+  icinga_user:
+    name: "icinga_user"
+    password: "{{ vault_icinga2_server_mariadb_users_icinga_password }}"
+    priv: "icinga.*:ALL"
+  icingaweb2_user:
+    name: "icingaweb2_user"
+    password: "{{ vault_icinga2_server_mariadb_users_icingaweb2_password }}"
+    priv: "icingaweb2.*:ALL"
+
+icinga2_server_api_users:
+  - username: root
+    password: "{{ vault_icinga2_server_api_users_root_password }}"
+    permissions: '*'
+
+# Role ansible-role-certbot : defina auto renew, schedule, ...
+certbot_auto_renew: true
+certbot_auto_renew_user: "root"
+certbot_auto_renew_hour: "3"
+certbot_auto_renew_minute: "36"
+certbot_auto_renew_options: "--quiet --no-self-upgrade --pre-hook \"systemctl stop apache2\" --post-hook \"systemctl start apache2\" --deploy-hook \"cp -pf /etc/letsencrypt/live/{{ inventory_hostname }}/*.pem /etc/apache2/ && chown www-data: /etc/apache2/*.pem\""
+certbot_create_if_missing: true
+certbot_create_method: standalone
+certbot_create_standalone_stop_services:
+  - apache2
+certbot_certs:
+  - domains:
+    - "{{ inventory_hostname }}"
+
+icinga2_server_ticket_salt: "{{ vault_icinga2_server_ticket_salt }}"
+icinga2_server_custom_hostgroup: wirebrass
+icinga2_server_icingaweb2_main_user_email: "{{ vault_icinga2_server_icingaweb2_main_user_email }}"
+
+icinga2_server_icinga_ssh_pubkey: "{{ vault_icinga2_server_icinga_ssh_pubkey }}"
+icinga2_server_icinga_ssh_privkey: "{{ vault_icinga2_server_icinga_ssh_privkey }}"
