@@ -1,0 +1,5 @@
+---
+- name: X environment package (awesome, Xorg, Xscreensaver, Xrb, ...)
+  package:
+    name: "{{ workstation_xdesktop_packages }}"
+    state: present

@@ -1,0 +1,33 @@
+---
+# defaults file for workstation_xdesktop
+
+workstation_xdesktop_user: john
+workstation_xdesktop_group: john
+workstation_xdesktop_home: /home/john
+workstation_xdesktop_packages:
+  - awesome
+  - xrdb
+  - xbacklight
+  - xscreensaver
+  - xorg-x11
+  - eog
+  - evince
+  - xournal
+  - vlc
+  - pcmanfm
+  - libreoffice-bin
+  - firefox-bin
+  - filezilla
+  - keepass
+  - mpv
+  - qbittorrent
+  - teams
+  - smplayer
+  - texstudio
+  - volumeicon
+  - geany
+  - scrot
+  - gtk+
+  - skypeforlinux
+  - alsa-utils
+

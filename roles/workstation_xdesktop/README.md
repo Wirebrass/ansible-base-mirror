@@ -1,7 +1,7 @@
-Ansible Role: workstation mutt
+Ansible Role: workstation xdesktop
 =========
 
-This role configure Mutt on a GNU/Linux workstation.
+This role configure X environment on a GNU/Linux workstation.
 
 Requirements
 ------------
@@ -23,7 +23,7 @@ Example Playbook
 
     - hosts: localhost
       roles:
-        - workstation_mutt
+        - workstation_xdesktop
 
 License
 -------

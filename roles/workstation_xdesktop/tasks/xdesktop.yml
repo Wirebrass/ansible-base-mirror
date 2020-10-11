@@ -1,0 +1,58 @@
+---
+- name: Home x files deployed
+  copy:
+    src: "{{ item }}"
+    dest: "{{ workstation_xdesktop_home }}/.{{ item }}"
+    owner: "{{ workstation_xdesktop_user }}"
+    group: "{{ workstation_xdesktop_group }}"
+    mode: 0640
+  loop:
+    - Xdefaults
+    - xinitrc
+    - Xresources
+    - xscreensaver
+
+- name: Awesome rc.lua configured
+  copy:
+    src: awesome.rc.lua
+    dest: "{{ workstation_xdesktop_home }}/.config/awesome/rc.lua"
+    owner: "{{ workstation_xdesktop_user }}"
+    group: "{{ workstation_xdesktop_group }}"
+    mode: 0640
+
+- name: Check if awesome-wm-widgets alreay exists
+  stat:
+    path: "{{ workstation_xdesktop_home }}/.config/awesome/awesome-wm-widgets"
+  register: awesome_wm_widgets_directory
+
+- name: awesome-wm-widgets GIT repository cloned
+  git:
+    repo: https://github.com/streetturtle/awesome-wm-widgets.git
+    dest: "{{ workstation_xdesktop_home }}/.config/awesome/awesome-wm-widgets"
+    update: no
+  when: not awesome_wm_widgets_directory.stat.exists
+
+- name: Check if battery-widget alreay exists
+  stat:
+    path: "{{ workstation_xdesktop_home }}/.config/awesome/battery-widget"
+  register: battery_widget_directory
+
+- name: battery-widget GIT repository cloned
+  git:
+    repo: https://github.com/deficient/battery-widget.git
+    dest: "{{ workstation_xdesktop_home }}/.config/awesome/battery-widget"
+    update: no
+  when: not battery_widget_directory.stat.exists
+
+- name: Check if net_widgets alreay exists
+  stat:
+    path: "{{ workstation_xdesktop_home }}/.config/awesome/net_widgets"
+  register: net_widgets_directory
+
+- name: net_widgets GIT repository cloned
+  git:
+    repo: https://github.com/pltanton/net_widgets.git
+    dest: "{{ workstation_xdesktop_home }}/.config/awesome/net_widgets"
+    update: no
+  when: not net_widgets_directory.stat.exists
+

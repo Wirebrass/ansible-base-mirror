@@ -1,0 +1,164 @@
+XTerm*background:black
+XTerm*foreground:white
+XTerm*saveLines: 1000
+XTerm*HiForeColor: white
+XTerm*HiBackColor: #c06077
+XTerm*faceName: liberation mono:pixelsize=12
+
+Xcursor.theme: Vanilla-DMZ
+! ===============================================
+! URXVT
+! ===============================================
+#URxvt*termName: xterm
+URxvt*geometry: 240x84
+! URxvt*chdir: string
+! URxvt*reverseVideo: boolean
+URxvt*loginShell: false
+! URxvt*jumpScroll: boolean
+! URxvt*skipScroll: boolean
+! URxvt*pastableTabs: boolean
+! URxvt*scrollstyle: mode
+URxvt*scrollBar: false
+! URxvt*scrollBar_right: boolean
+! URxvt*scrollBar_floating: boolean
+! URxvt*scrollBar_align: mode
+! URxvt*thickness: number
+! URxvt*scrollTtyOutput: boolean
+! URxvt*scrollTtyKeypress: boolean
+! URxvt*scrollWithBuffer: boolean
+! URxvt*inheritPixmap: boolean
+URxvt*transparent: false
+! URxvt*tintColor: color
+URxvt*shading: 20
+! URxvt*blurRadius: HxV
+URxvt*fading: 40
+URxvt*fadeColor: black
+! URxvt*utmpInhibit: boolean
+URxvt*urgentOnBell: true
+URxvt*visualBell: true
+! URxvt*mapAlert: boolean
+! URxvt*meta8: boolean
+! URxvt*mouseWheelScrollPage: boolean
+! URxvt*tripleclickwords: boolean
+! URxvt*insecure: boolean
+! URxvt*cursorUnderline: boolean
+! URxvt*cursorBlink: boolean
+URxvt*pointerBlank: true
+URxvt*background: #000000
+URxvt*foreground: #B0B0B0
+! URxvt! *colorBD: color
+! URxvt! *colorIT: color
+URxvt! *colorUL: #75A8F0
+! URxvt! *colorRV: color
+! URxvt*underlineColor: color
+! URxvt*scrollColor: color
+! URxvt*troughColor: color
+! URxvt*highlightColor: color
+! URxvt*highlightTextColor: color
+URxvt*cursorColor: #626262
+URxvt*cursorColor2: #FFFFFF
+! URxvt*pointerColor: color
+! URxvt*pointerColor2: color
+! URxvt*borderColor: color
+! URxvt*iconFile: file
+URxvt.font: xft:DejaVu Sans Mono:size=9.0
+URxvt.boldFont: xft:DejaVu Sans Mono:bold:size=9.0
+URxvt.italicFont: xft:DejaVu Sans Mono:italic:size=9.0
+URxvt.boldItalicFont: xft:DejaVu Sans Mono:bold:italic:size=9.2
+! URxvt*intensityStyles: boolean
+! URxvt*inputMethod: name
+! URxvt*preeditType: style
+! URxvt*imLocale: string
+! URxvt*imFont: fontname
+! URxvt*title: string
+! URxvt*iconName: string
+URxvt*saveLines: 100000
+! URxvt*buffered: boolean
+! URxvt*depth: number
+! URxvt*visual: number
+! URxvt*transient-for: windowid
+! URxvt*override-redirect: boolean
+! URxvt*hold: boolean
+! URxvt*externalBorder: number
+! URxvt*internalBorder: number
+! URxvt*borderLess: boolean
+! URxvt*lineSpace: number
+URxvt*letterSpace: -1
+! URxvt*skipBuiltinGlyphs: boolean
+! URxvt*pointerBlankDelay: number
+! URxvt*backspacekey: string
+! URxvt*deletekey: string
+! URxvt*print-pipe: string
+! URxvt*modifier: modifier
+! URxvt*cutchars: string
+URxvt*cutchars: │|`"'&()*,;<=>?@[]^{}
+! URxvt*answerbackString: string
+! URxvt*secondaryScreen: boolean
+! URxvt*secondaryScroll: boolean
+! URxvt*perl-lib: string
+! URxvt*perl-eval: perl-eval
+URxvt*perl-ext-common: default,matcher,bell-command,selection
+! URxvt*perl-ext: string
+URxvt*iso14755: false
+! URxvt*iso14755_52: boolean
+! URxvt*xrm: string
+! URxvt*keysym.sym: keysym
+! URxvt*background.border: boolean
+! URxvt*background.expr: string
+! URxvt*background.interval: seconds
+! URxvt*bell-command: string
+URxvt*matcher.button: C-1
+! URxvt*matcher.launcher: string
+! URxvt*matcher.launcher.*: string
+! URxvt*matcher.pattern.*: string
+! URxvt*matcher.rend.*: string
+! URxvt*remote-clipboard.fetch: string
+! URxvt*remote-clipboard.store: string
+! URxvt*searchable-scrollback: string
+! URxvt*selection-autotransform.*: string
+! URxvt*selection-pastebin.cmd: string
+! URxvt*selection-pastebin.url: string
+!URxvt*selection.pattern-0: \\|([^|]+)\\|
+! URxvt*tab-bg: colour
+! URxvt*tab-fg: colour
+! URxvt*tabbar-bg: colour
+! URxvt*tabbar-fg: colour
+URxvt*url-launcher: /usr/bin/xdg-open
+
+
+! https://bastian.rieck.ru/blog/posts/2013/making_urxvt_beautiful/
+ *color0:  #2E3436
+ *color1:  #CC0000
+ *color2:  #4E9A06
+ *color3:  #C4A000
+ *color4:  #3465A4
+ *color5:  #75507B
+ *color6:  #06989A
+ *color7:  #D3D7CF
+ *color8:  #555753
+ *color9:  #EF2929
+ *color10: #8AE234
+ *color11: #FCE94F
+ *color12: #729FCF
+ *color13: #AD7FA8
+ *color14: #34E2E3
+ *color15: #EEEEEC
+
+URxvt.keysym.Shift-Control-V: eval:paste_clipboard
+URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
+
+!! Control + arrow key navigation
+URxvt.keysym.Control-Up:    \033[1;5A
+URxvt.keysym.Control-Down:  \033[1;5B
+URxvt.keysym.Control-Left:  \033[1;5D
+URxvt.keysym.Control-Right: \033[1;5C
+
+!! Shift + page up/down
+URxvt.keysym.Shift-Up: command:\033]720;1\007
+URxvt.keysym.Shift-Down: command:\033]721;1\007
+
+URxvt.keysym.Home:	\033[1~
+URxvt.keysym.End:	\033[4~
+URxvt.keysym.KP_Home:	\033[1~
+URxvt.keysym.KP_End:	\033[4~
+
