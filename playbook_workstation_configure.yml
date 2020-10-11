@@ -2,8 +2,8 @@
 
 - hosts: localhost
   vars_files:
-    - vars-workstation/vault-workstation.yml
-    - vars-workstation/vars-workstation.yml
+    - vars_workstation/vault-workstation.yml
+    - vars_workstation/vars-workstation.yml
   roles:
     - client_resolvers
     - client_tools
