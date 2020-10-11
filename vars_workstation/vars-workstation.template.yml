@@ -1,0 +1,47 @@
+---
+ansible_become_pass: "{{ vault_ansible_become_pass }}"
+ansible_become: yes
+ansible_python_interpreter: auto_silent
+
+tools_package:
+  - app-misc/screen
+  - bind-tools
+  - vim
+  - tcpdump
+  - gentoolkit
+  - tmux
+  - htop
+  - sudo
+  - curl
+  - sed
+  - awk
+  - grep
+  - jq
+  - mailutils
+
+resolvers:
+  - 2001:910:800::40
+  - 80.67.169.12
+  - 2001:913::8
+  - 80.67.188.188
+
+tcp_authorized_ports: []
+udp_authorized_ports: []
+ip_authorized: []
+
+workstation_mutt_user: john
+workstation_mutt_group: john
+workstation_mutt_home: /home/john
+workstation_mutt_realname: "John DOE"
+workstation_mutt_spoolfile: "imaps://example.org:993/INBOX"
+workstation_mutt_imap_user: "{{ vault_workstation_mutt_imap_user }}"
+workstation_mutt_imap_pass: "{{ vault_workstation_mutt_imap_pass }}"
+workstation_mutt_smtp_url: "smtp://john@example.org:587/"
+workstation_mutt_smtp_pass: "{{ vault_workstation_mutt_smtp_pass }}"
+workstation_mutt_from: "john@example.org"
+workstation_mutt_trash: "imaps://example.org/Trash"
+workstation_mutt_record: "+Sent"
+workstation_mutt_postponed: "+Drafts"
+workstation_mutt_folder: "imaps://example.org:993/"
+workstation_mutt_pgp_sign_as: "{{ vault_workstation_mutt_pgp_sign_as }}"
+

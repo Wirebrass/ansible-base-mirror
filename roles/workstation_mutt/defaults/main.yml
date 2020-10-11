@@ -7,7 +7,7 @@ workstation_mutt_home: /home/john
 workstation_mutt_realname: "John DOE"
 workstation_mutt_spoolfile: "imaps://example.org:993/INBOX"
 workstation_mutt_imap_user: "john"
-workstation_mutt_imap_pass: "YOURSMTPPASSWORD"
+workstation_mutt_imap_pass: "YOURIMAPPASSWORD"
 workstation_mutt_smtp_url: "smtp://example.org:587/"
 workstation_mutt_smtp_pass: "YOURSMTPPASSWORD"
 workstation_mutt_from: "john@example.org"
