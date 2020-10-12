@@ -1,0 +1,58 @@
+---
+- name: Portage profile defined
+  file:
+    src: "../../usr/portage/profiles/default/linux/amd64/17.1/desktop"
+    dest: "/etc/portage/make.profile"
+    owner: root
+    group: root
+    state: link
+
+- name: Portage make.conf file configured
+  template:
+    src: make.conf.j2
+    dest: /etc/portage/make.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Portage USE flags folder configured
+  file:
+    src: package.use.ansible.j2
+    dest: /etc/portage/package.use
+    owner: root
+    group: root
+    mode: 0755
+    state: directory
+
+- name: Portage USE flags configured
+  template:
+    src: package.use.ansible.j2
+    dest: /etc/portage/package.use/ansible
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Portage ACCEPT_KEYWORDS flags folder configured
+  file:
+    src: package.use.ansible.j2
+    dest: /etc/portage/package.accept_keywords
+    owner: root
+    group: root
+    mode: 0755
+    state: directory
+
+- name: Portage ACCEPT_KEYWORDS flags configured
+  template:
+    src: package.accept_keywords.ansible.j2
+    dest: /etc/portage/package.accept_keywords/ansible
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Portage LICENSE configured
+  template:
+    src: package.license.j2
+    dest: /etc/portage/package.license
+    owner: root
+    group: root
+    mode: 0644

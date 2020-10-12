@@ -1,0 +1,28 @@
+CFLAGS="{{ workstation_portage_cflags }}"
+CXXFLAGS="${CFLAGS}"
+MAKEOPTS="{{ workstation_portage_makeopts }}"
+
+PORTDIR="{{ workstation_portage_portdir }}"
+DISTDIR="{{ workstation_portage_distdir }}"
+PKGDIR="{{ workstation_portage_pkgdir }}"
+
+LC_MESSAGES=C
+
+GENTOO_MIRRORS="
+{% for workstation_portage_gentoo_mirror in workstation_portage_gentoo_mirrors %}
+{{ workstation_portage_gentoo_mirror }}
+{% endfor %}
+"
+
+CPU_FLAGS_X86="{{ workstation_portage_cpuflags }}"
+
+USE="{{ workstation_portage_use }}"
+
+source /var/lib/layman/make.conf
+ACCEPT_LICENSE="{{ workstation_portage_accept_license }}"
+L10N="{{ workstation_portage_L10N }}"
+
+FEATURES="getbinpkg"
+PORTAGE_BINHOST="{{ workstation_portage_binhost }}"
+
+PORTAGE_NICENESS="{{ workstation_portage_niceness }}"

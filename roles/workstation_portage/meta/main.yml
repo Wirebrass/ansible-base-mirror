@@ -1,0 +1,19 @@
+galaxy_info:
+  author: nemo
+  description: Configure Gentoo Portage on a GNU/Linux workstation.
+  company: Wirebrass
+
+  license: license (BSD)
+
+  min_ansible_version: 2.4
+
+  platforms:
+    - name: Gentoo
+      versions:
+        - all
+
+  galaxy_tags:
+    - mutt
+    - mail
+
+dependencies: []
