@@ -1,0 +1,27 @@
+---
+# defaults file for workstation_mutt
+
+workstation_mutt_user: john
+workstation_mutt_group: john
+workstation_mutt_home: /home/john
+workstation_mutt_realname: "John DOE"
+workstation_mutt_spoolfile: "imaps://example.org:993/INBOX"
+workstation_mutt_imap_user: "john"
+workstation_mutt_imap_pass: "YOURIMAPPASSWORD"
+workstation_mutt_smtp_url: "smtp://example.org:587/"
+workstation_mutt_smtp_pass: "YOURSMTPPASSWORD"
+workstation_mutt_from: "john@example.org"
+workstation_mutt_trash: "imaps://example.org/Trash"
+workstation_mutt_record: "+Sent"
+workstation_mutt_postponed: "+Drafts"
+workstation_mutt_folder: "imaps://example.org:993/"
+workstation_mutt_pgp_sign_as: YOURPHPIDKEY
+workstation_mutt_packages:
+  - gnupg
+  - mutt
+  - abook
+  - antiword
+  - pstotext
+  - poppler
+  - links
+

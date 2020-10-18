@@ -5,3 +5,5 @@ roles/powerdns.*
 inventory*
 !inventory_template/inventory.yml
 !inventory_template*
+vars_workstation/vault-workstation.yml
+vars_workstation/vars-workstation.yml

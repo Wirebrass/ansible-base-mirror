@@ -1,0 +1,4 @@
+xrdb .Xdefaults 
+xbacklight -set 30
+xscreensaver -no-splash &
+exec awesome -c ~/.config/awesome/rc.lua 2>> ~/.xsession-errors

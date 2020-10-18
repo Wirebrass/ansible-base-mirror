@@ -1,0 +1,5 @@
+vault_ansible_become_pass: YOURLOCALSUDOPASSWORD
+vault_workstation_mutt_imap_user: "YOURIMAPUSER"
+vault_workstation_mutt_imap_pass: "YOURIMAPPASSWORD"
+vault_workstation_mutt_smtp_pass: "YOURSMTPPASSWORD"
+vault_workstation_mutt_pgp_sign_as: YOURPGPID

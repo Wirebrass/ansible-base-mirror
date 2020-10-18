@@ -1,0 +1,16 @@
+---
+- name: Mailcap configured
+  template:
+    src: mailcap.j2
+    dest: "{{ workstation_mutt_home }}/.mailcap"
+    owner: "{{ workstation_mutt_user }}"
+    group: "{{ workstation_mutt_group }}"
+    mode: 0600
+
+- name: Mutt configured
+  template:
+    src: muttrc.j2
+    dest: "{{ workstation_mutt_home }}/.muttrc"
+    owner: "{{ workstation_mutt_user }}"
+    group: "{{ workstation_mutt_group }}"
+    mode: 0600

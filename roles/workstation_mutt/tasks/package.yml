@@ -1,0 +1,5 @@
+---
+- name: Mutt, abook, antiword, pstotext, gnupg and poppler installed
+  package:
+    name: "{{ workstation_mutt_packages }}"
+    state: present
