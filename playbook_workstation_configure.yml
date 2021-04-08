@@ -5,9 +5,11 @@
     - vars_workstation/vault-workstation.yml
     - vars_workstation/vars-workstation.yml
   roles:
-    - client_resolvers
-    - client_tools
-    - client_ntp
-    - client_iptables
-    - workstation_mutt
+    #- client_resolvers
+    #- client_tools
+    #- client_ntp
+    #- client_iptables
+    #- workstation_mutt
+    #- workstation_xdesktop
+    - workstation_portage
 
